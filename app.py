@@ -5,12 +5,12 @@ from flask import Flask, jsonify, request, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import NoResultFound
 from flask_marshmallow import Marshmallow
-from models import db
-from models.user import Industry
-from models.trade import Role
+from models import app, db
+from models.user import User
+from models.trade import Trade
 from schemas.ma import ma
-from schemas.trade_schema import IndustrySchema
-from schemas.user_schema import RoleSchema
+from schemas.trade_schema import TradeSchema
+from schemas.user_schema import UserSchema
 from sqlalchemy import exc
 import json
 import datetime
@@ -19,12 +19,12 @@ import datetime
 db.create_all()
 
 # One response
-# user_schema = user_schema()
-# trade_schema = trade_Schema()
+user_schema = UserSchema()
+trade_schema = TradeSchema()
 
 # Many responses
-# user_schemas = user_schemas(many=True)
-# trade_schemas = trade_Schemas(many=True)
+user_schemas = UserSchema(many=True)
+trade_schemas = TradeSchema(many=True)
 
 
 # Testing user access. No token needed
