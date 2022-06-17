@@ -1,0 +1,7 @@
+from sqlite3 import adapt
+from django.conf import DEFAULT_HASHING_ALGORITHM_DEPRECATED_MSG
+
+
+DEFAULT_HASHING_ALGORITHM_DEPRECATED_MSG
+
+adapt
