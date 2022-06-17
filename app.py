@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import NoResultFound
 from flask_marshmallow import Marshmallow
-from models import app, db
+from models.db import app, db
 from models.user import User
 from models.trade import Trade
 from schemas.ma import ma
