@@ -61,5 +61,39 @@ def create_trade():
     return jsonify({'message': 'New trade created!'})
 
 
+@app.route('/update/<trade_id>', methods=['PUT'])
+def update_trade(trade_id):
+    """ Update a trade """
+    trade = Trade.query.filter_by(trade_id=trade_id).first()
+    if not trade:
+        return jsonify({'message': 'No trade found!'})
+
+    data = request.get_json()
+    trade.trade_id = data['trade_id']
+    trade.user_id = data['user_id']
+    trade.trade_status = data['trade_status']
+    trade.trade = data['trade']
+    trade.company = data['company']
+    trade.ticker = data['ticker']
+    trade.quantity = data['quantity']
+    trade.price = data['price']
+    trade.trade_date = data['trade_date']
+    db.session.commit()
+    return jsonify({'message' : 'The trade register has been updated!'})
+
+
+@app.route('/delete/<trade_id>', methods=['DELETE'])
+def delete_trade(trade_id):
+    """ Delete a trade """
+    trade = Trade.query.filter_by(trade_id=trade_id).first()
+    if not trade:
+        return jsonify({'message': 'No trade found!'})
+
+    db.session.delete(trade)
+    db.session.commit()
+
+    return jsonify({'message': 'trade deleted!'})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
