@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user (
 	user_id VARCHAR(60) NOT NULL, 
     user_name VARCHAR(128) NOT NULL,
-    email VARCHAR(128) NOT NULL,
+    email VARCHAR(128) UNIQUE NOT NULL,
     hashed_password VARCHAR(128) NOT NULL,
     session_id VARCHAR(128) NOT NULL,
     PRIMARY KEY (`user_id`)
