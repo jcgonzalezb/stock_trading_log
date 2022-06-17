@@ -15,7 +15,7 @@ from sqlalchemy import exc
 import json
 import datetime
 
-
+# Create the tables that are associated with the models.
 db.create_all()
 
 # One response
@@ -26,11 +26,28 @@ trade_schema = TradeSchema()
 user_schemas = UserSchema(many=True)
 trade_schemas = TradeSchema(many=True)
 
+# index page
+
+
+@app.route('/')
+def index():
+    return jsonify({'message': 'Welcome to the stock trading log!'})
+
 
 # Testing user access. No token needed
 @app.route('/unprotected')
 def unprotected():
     return jsonify({'message': 'Anyone can view this!'})
+
+
+# Show all trades
+@app.route('/all', methods=['GET'])
+def get_all_trades():
+    table = Trade
+    value_schemas = trade_schemas
+    results = table.query.all()
+    val_results = value_schemas.dump(results)
+    return jsonify(val_results)
 
 
 if __name__ == "__main__":
