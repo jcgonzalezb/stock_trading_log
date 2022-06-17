@@ -41,9 +41,24 @@ def unprotected():
 
 @app.route('/all', methods=['GET'])
 def get_all_trades():
-    """ Show all the trades """
+    """ Show all trades """
     results = Trade.query.all()
     return jsonify(trade_schemas.dump(results))
+
+
+@app.route('/new_trade', methods=['POST'])
+def create_trade():
+    """ Create a trade """
+    data = request.get_json()
+    new_trade = Trade(trade_id=data['trade_id'], user_id=data['user_id'],
+                      trade_status=data['trade_status'], trade=data['trade'],
+                      company=data['company'], ticker=data['ticker'],
+                      quantity=data['quantity'], price=data['price'],
+                      trade_date=data['trade_date'])
+    db.session.add(new_trade)
+    db.session.commit()
+
+    return jsonify({'message': 'New trade created!'})
 
 
 if __name__ == "__main__":
