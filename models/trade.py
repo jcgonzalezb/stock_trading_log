@@ -15,12 +15,12 @@ class Trade(db.Model):
     trade = db.Column(db.String(60), nullable=False)
     company = db.Column(db.String(128), nullable=False)
     ticker = db.Column(db.String(60), nullable=False)
-    number_employees = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float)
     trade_date = db.Column(db.DateTime(timezone=True))
 
     def __init__(self, trade_id, user_id, trade_status, trade, company,
-                 ticker, number_employees, price, trade_date):
+                 ticker, quantity, price, trade_date):
         """ Python class constructor function job is to
         initialize the instance of the class Trade """
         self.trade_id = trade_id
@@ -29,6 +29,6 @@ class Trade(db.Model):
         self.trade = trade
         self.company = company
         self.ticker = ticker
-        self.number_employees = number_employees
+        self.quantity = quantity
         self.price = price
         self.trade_date = trade_date
