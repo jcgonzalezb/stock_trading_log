@@ -82,6 +82,29 @@ def update_trade(trade_id):
     return jsonify({'message': 'The trade has been updated!'})
 
 
+
+@app.route('/update_status/<trade_id>', methods=['PUT'])
+def update_status(trade_id):
+    """ Update a trade """
+    trade = Trade.query.filter_by(trade_id=trade_id).first()
+    if not trade:
+        return jsonify({'message': 'No trade found!'})
+    form = request.form
+    trade_status = form.get('trade_status', '')
+    print(trade_status)
+    if trade_status == 'enable':
+        print("enable")
+        setattr(trade, trade_status, 'disable')
+        db.session.commit()
+        return jsonify({'message': 'The status has been updated to disable!'})
+    elif trade_status == 'disable':
+        setattr(trade, trade_status, 'enable')
+        db.session.commit()
+        return jsonify({'message': 'The status has been updated to enable!'})
+    return jsonify({'message': 'The status has been updated!'})
+
+
+
 @app.route('/delete/<trade_id>', methods=['DELETE'])
 def delete_trade(trade_id):
     """ Delete a trade """
@@ -93,6 +116,17 @@ def delete_trade(trade_id):
     db.session.commit()
 
     return jsonify({'message': 'trade deleted!'})
+
+
+@app.route('/delete_trades', methods=['DELETE'])
+def delete_all_trades():
+    """ Delete all trades """
+
+    results = Trade.delete.all()
+    db.session.commit()
+    return jsonify({'message': 'trades deleted!'})
+
+
 
 
 if __name__ == "__main__":
