@@ -79,7 +79,7 @@ def update_trade(trade_id):
     trade.price = data['price']
     trade.trade_date = data['trade_date']
     db.session.commit()
-    return jsonify({'message' : 'The trade register has been updated!'})
+    return jsonify({'message': 'The trade has been updated!'})
 
 
 @app.route('/delete/<trade_id>', methods=['DELETE'])
