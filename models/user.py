@@ -1,7 +1,7 @@
 """ Holds class User"""
 
 from flask_sqlalchemy import SQLAlchemy
-from models.db import db
+from config import db
 
 
 class User(db.Model):

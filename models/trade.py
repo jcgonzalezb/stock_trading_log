@@ -1,7 +1,7 @@
 """ Holds class Trade"""
 
 from flask_sqlalchemy import SQLAlchemy
-from models.db import db
+from config import db
 
 
 class Trade(db.Model):
