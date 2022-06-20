@@ -120,7 +120,7 @@ def delete_all_trades():
     """ Delete all trades """
     results = Trade.query.all()
     if results == []:
-        return jsonify({'message': 'No trades in the database!'})
+        return jsonify({'message': 'The user has no trades!'})
 
     for _ in results:
         trade = Trade.query.filter_by(trade_id=Trade.trade_id).first()
