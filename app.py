@@ -112,7 +112,6 @@ def delete_trade(trade_id):
 
     db.session.delete(trade)
     db.session.commit()
-
     return jsonify({'message': 'trade deleted!'})
 
 
