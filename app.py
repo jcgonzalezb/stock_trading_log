@@ -88,19 +88,15 @@ def update_status(trade_id):
     trade = Trade.query.filter_by(trade_id=trade_id).first()
     if not trade:
         return jsonify({'message': 'No trade found!'})
-    form = request.form
-    trade_status = form.get('trade_status', '')
-    print(trade_status)
-    if trade_status == 'enable':
-        print("enable")
-        setattr(trade, trade_status, 'disable')
+
+    if trade.trade_status == 'enable':
+        trade.trade_status = 'disable'
         db.session.commit()
         return jsonify({'message': 'The status has been updated to disable!'})
-    elif trade_status == 'disable':
-        setattr(trade, trade_status, 'enable')
+    elif trade.trade_status == 'disable':
+        trade.trade_status = 'enable'
         db.session.commit()
         return jsonify({'message': 'The status has been updated to enable!'})
-    return jsonify({'message': 'The status has been updated!'})
 
 
 @app.route('/delete/<trade_id>', methods=['DELETE'])
