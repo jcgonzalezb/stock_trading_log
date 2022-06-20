@@ -12,6 +12,7 @@ from schemas.ma import ma
 from schemas.trade_schema import TradeSchema
 from schemas.user_schema import UserSchema
 from sqlalchemy import exc
+import uuid
 import json
 import datetime
 
@@ -50,7 +51,7 @@ def get_all_trades():
 def create_trade():
     """ Create a trade """
     data = request.get_json()
-    new_trade = Trade(trade_id=data['trade_id'], user_id=data['user_id'],
+    new_trade = Trade(trade_id=str(uuid.uuid4()), user_id=data['user_id'],
                       trade_status=data['trade_status'], trade=data['trade'],
                       company=data['company'], ticker=data['ticker'],
                       quantity=data['quantity'], price=data['price'],
