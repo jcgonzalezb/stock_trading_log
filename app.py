@@ -82,7 +82,6 @@ def update_trade(trade_id):
     return jsonify({'message': 'The trade has been updated!'})
 
 
-
 @app.route('/update_status/<trade_id>', methods=['PUT'])
 def update_status(trade_id):
     """ Update a trade """
@@ -104,7 +103,6 @@ def update_status(trade_id):
     return jsonify({'message': 'The status has been updated!'})
 
 
-
 @app.route('/delete/<trade_id>', methods=['DELETE'])
 def delete_trade(trade_id):
     """ Delete a trade """
@@ -121,12 +119,15 @@ def delete_trade(trade_id):
 @app.route('/delete_trades', methods=['DELETE'])
 def delete_all_trades():
     """ Delete all trades """
+    results = Trade.query.all()
+    if results == []:
+        return jsonify({'message': 'No trades in the database!'})
 
-    results = Trade.delete.all()
+    for _ in results:
+        trade = Trade.query.filter_by(trade_id=Trade.trade_id).first()
+        db.session.delete(trade)
     db.session.commit()
-    return jsonify({'message': 'trades deleted!'})
-
-
+    return jsonify({'message': 'All trades deleted!'})
 
 
 if __name__ == "__main__":
