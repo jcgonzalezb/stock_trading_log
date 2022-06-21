@@ -15,6 +15,7 @@ from sqlalchemy import exc
 import uuid
 import json
 import datetime
+import bcrypt
 
 # Create the tables that are associated with the models.
 db.create_all()
@@ -124,6 +125,41 @@ def delete_all_trades():
         db.session.delete(trade)
     db.session.commit()
     return jsonify({'message': 'All trades deleted!'})
+
+@app.route('/new_user', methods=['POST'])
+def create_user():
+    """ Create a user """
+    try:
+        data = request.get_json()
+        user_id = data.get('user_id', '')
+        email = data.get('email', '')
+        hashed_password = data.get('hashedpassword', '')
+        session_id = data.get('session_id', '')
+        password_hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+
+
+
+    new_trade = Trade(trade_id=str(uuid.uuid4()), user_id=data['user_id'],
+                      trade_status=data['trade_status'], trade=data['trade'],
+                      company=data['company'], ticker=data['ticker'],
+                      quantity=data['quantity'], price=data['price'],
+                      trade_date=data['trade_date'])
+    db.session.add(new_trade)
+    db.session.commit()
+
+    return jsonify({'message': 'New user created!'})
+
+
+    except Exception as e:
+        return({'message': 'Sorry, new user not created'}), 500
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
