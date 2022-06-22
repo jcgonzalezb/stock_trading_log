@@ -145,5 +145,12 @@ def create_user():
     return jsonify({'message': 'New user created!'})
 
 
+@app.route('/all_users', methods=['GET'])
+def get_all_user():
+    """ Show all users """
+    results = User.query.all()
+    return jsonify(user_schemas.dump(results))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
