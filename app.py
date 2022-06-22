@@ -15,6 +15,7 @@ from sqlalchemy import exc
 import uuid
 import json
 import datetime
+import bcrypt
 
 # Create the tables that are associated with the models.
 db.create_all()
@@ -124,6 +125,31 @@ def delete_all_trades():
         db.session.delete(trade)
     db.session.commit()
     return jsonify({'message': 'All trades deleted!'})
+
+
+@app.route('/new_user', methods=['POST'])
+def create_user():
+    """ Create a user """
+
+    data = request.get_json()
+    user_id = data.get('user_id', '')
+    email = data.get('email', '')
+    password = data.get('password', '')
+    session_id = data.get('session_id', '')
+    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+    new_user = User(user_id=user_id, email=email,
+                    hashed_password=hashed_password,
+                    session_id=session_id)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'New user created!'})
+
+
+@app.route('/all_users', methods=['GET'])
+def get_all_user():
+    """ Show all users """
+    results = User.query.all()
+    return jsonify(user_schemas.dump(results))
 
 
 if __name__ == "__main__":
