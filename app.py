@@ -1,7 +1,8 @@
 from json.tool import main
 from crypt import methods
 from unicodedata import name
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request
+from routes.user_blueprint import user_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import NoResultFound
 from flask_marshmallow import Marshmallow
@@ -28,6 +29,7 @@ trade_schema = TradeSchema()
 user_schemas = UserSchema(many=True)
 trade_schemas = TradeSchema(many=True)
 
+app.register_blueprint(user_blueprint)
 
 @app.route('/')
 def index():
@@ -110,13 +112,8 @@ def create_user():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'New user created!'})
-
-
-@app.route('/all_users', methods=['GET'])
-def get_all_user():
-    """ Show all users """
-    results = User.query.all()
-    return jsonify(user_schemas.dump(results))
+    
+    
 
 
 if __name__ == "__main__":
