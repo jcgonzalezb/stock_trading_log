@@ -52,7 +52,7 @@ def get_all_trades():
 def create_trade():
     """ Create a trade """
     data = request.get_json()
-    new_trade = Trade(trade_id=str(uuid.uuid4()), user_id=data['user_id'],
+    new_trade = Trade(user_id=data['user_id'],
                       trade_status=data['trade_status'], trade=data['trade'],
                       company=data['company'], ticker=data['ticker'],
                       quantity=data['quantity'], price=data['price'],
@@ -84,7 +84,7 @@ def update_trade(trade_id):
     return jsonify({'message': 'The trade has been updated!'})
 
 
-@app.route('/update_status/<trade_id>', methods=['PUT'])
+@app.route('/update_status/<trade_id>', methods=['PATCH'])
 def update_status(trade_id):
     """ Update a trade """
     trade = Trade.query.filter_by(trade_id=trade_id).first()
@@ -94,37 +94,7 @@ def update_status(trade_id):
     if trade.trade_status == 'enable':
         trade.trade_status = 'disable'
         db.session.commit()
-        return jsonify({'message': 'The status has been updated to disable!'})
-    elif trade.trade_status == 'disable':
-        trade.trade_status = 'enable'
-        db.session.commit()
-        return jsonify({'message': 'The status has been updated to enable!'})
-
-
-@app.route('/delete/<trade_id>', methods=['DELETE'])
-def delete_trade(trade_id):
-    """ Delete a trade """
-    trade = Trade.query.filter_by(trade_id=trade_id).first()
-    if not trade:
-        return jsonify({'message': 'No trade found!'})
-
-    db.session.delete(trade)
-    db.session.commit()
-    return jsonify({'message': 'trade deleted!'})
-
-
-@app.route('/delete_trades', methods=['DELETE'])
-def delete_all_trades():
-    """ Delete all trades """
-    results = Trade.query.all()
-    if results == []:
-        return jsonify({'message': 'The user has no trades!'})
-
-    for _ in results:
-        trade = Trade.query.filter_by(trade_id=Trade.trade_id).first()
-        db.session.delete(trade)
-    db.session.commit()
-    return jsonify({'message': 'All trades deleted!'})
+        return jsonify({'message': 'The trade has been deleted!'})
 
 
 @app.route('/new_user', methods=['POST'])
