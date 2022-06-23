@@ -132,13 +132,11 @@ def create_user():
     """ Create a user """
 
     data = request.get_json()
-    id = data.get('id', '')
-    email = data.get('email', '')
-    password = data.get('password', '')
-    session_id = data.get('session_id', '')
+    email = data.get('email') or ''
+    password = data.get('password') or ''
     hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-    new_user = User(email=email,password=hashed_password, id=id,
-                    session_id=session_id)
+    password = hashed_password.decode()
+    new_user = User(email=email, password=password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'New user created!'})
