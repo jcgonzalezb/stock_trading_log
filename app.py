@@ -3,6 +3,7 @@ from crypt import methods
 from unicodedata import name
 from flask import Flask, jsonify, request
 from routes.user_blueprint import user_blueprint
+from routes.trade_blueprint import trade_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import NoResultFound
 from flask_marshmallow import Marshmallow
@@ -12,7 +13,7 @@ from models.trade import Trade
 from schemas.ma import ma
 from schemas.trade_schema import TradeSchema
 from schemas.user_schema import UserSchema
-from sqlalchemy import exc
+
 
 
 # Create the tables that are associated with the models.
@@ -27,6 +28,7 @@ user_schemas = UserSchema(many=True)
 trade_schemas = TradeSchema(many=True)
 
 app.register_blueprint(user_blueprint)
+app.register_blueprint(trade_blueprint)
 
 @app.route('/')
 def index():
@@ -50,22 +52,6 @@ def get_all_trades():
     """ Show all trades """
     results = Trade.query.all()
     return jsonify(trade_schemas.dump(results))
-
-
-@app.route('/new_trade', methods=['POST'])
-def create_trade():
-    """ Create a trade """
-    data = request.get_json()
-    new_trade = Trade(user_id=data['user_id'],
-                      trade_status=data['trade_status'], trade=data['trade'],
-                      company=data['company'], ticker=data['ticker'],
-                      quantity=data['quantity'], price=data['price'],
-                      trade_date=data['trade_date'])
-    db.session.add(new_trade)
-    db.session.commit()
-
-    return jsonify({'message': 'New trade created!'})
-
 
 @app.route('/update/<trade_id>', methods=['PUT'])
 def update_trade(trade_id):
