@@ -13,10 +13,7 @@ from schemas.ma import ma
 from schemas.trade_schema import TradeSchema
 from schemas.user_schema import UserSchema
 from sqlalchemy import exc
-import uuid
-import json
-import datetime
-import bcrypt
+
 
 # Create the tables that are associated with the models.
 db.create_all()
@@ -36,6 +33,11 @@ def index():
     """ Index page. No token needed """
     return jsonify({'message': 'Welcome to the stock trading log!'})
 
+@app.route('/all_users', methods=['GET'])
+def get_users_info():
+    """ User information stored in the database """
+    results = User.query.all()
+    return jsonify(user_schemas.dump(results))
 
 @app.route('/unprotected')
 def unprotected():
@@ -97,24 +99,6 @@ def update_status(trade_id):
         trade.trade_status = 'disable'
         db.session.commit()
         return jsonify({'message': 'The trade has been deleted!'})
-
-
-@app.route('/new_user', methods=['POST'])
-def create_user():
-    """ Create a user """
-
-    data = request.get_json()
-    email = data.get('email') or ''
-    password = data.get('password') or ''
-    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-    password = hashed_password.decode()
-    new_user = User(email=email, password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({'message': 'New user created!'})
-    
-    
-
 
 if __name__ == "__main__":
     app.run(debug=True)
