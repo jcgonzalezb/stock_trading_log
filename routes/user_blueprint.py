@@ -2,14 +2,12 @@ from config import db
 from models.user import User
 from validators.validator import Validator
 from validators.password_validator import Password, PasswordNotValidError
-
 from schemas.user_schema import UserSchema
 from flask import Blueprint, request, jsonify, abort
-user_schemas = UserSchema(many=True)
 import bcrypt
 
 user_blueprint = Blueprint('user_blueprint', __name__, url_prefix='/users')
-
+user_schemas = UserSchema(many=True)
 
 @user_blueprint.route('/', methods=['GET'], strict_slashes=False)
 def get_user_profile():
