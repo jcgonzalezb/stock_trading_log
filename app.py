@@ -73,18 +73,5 @@ def update_trade(trade_id):
     db.session.commit()
     return jsonify({'message': 'The trade has been updated!'})
 
-
-@app.route('/update_status/<trade_id>', methods=['PATCH'])
-def update_status(trade_id):
-    """ Update a trade """
-    trade = Trade.query.filter_by(trade_id=trade_id).first()
-    if not trade:
-        return jsonify({'message': 'No trade found!'})
-
-    if trade.trade_status == 'enable':
-        trade.trade_status = 'disable'
-        db.session.commit()
-        return jsonify({'message': 'The trade has been deleted!'})
-
 if __name__ == "__main__":
     app.run(debug=True)
