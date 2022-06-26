@@ -1,15 +1,18 @@
+from flask_jwt import jwt_required
+from flask import Blueprint, request, jsonify, abort
 from config import db
 from models.user import User
 from validators.validator import Validator
 from validators.password_validator import Password, PasswordNotValidError
 from schemas.user_schema import UserSchema
-from flask import Blueprint, request, jsonify, abort
+
 import bcrypt
 
 user_blueprint = Blueprint('user_blueprint', __name__, url_prefix='/users')
 user_schemas = UserSchema(many=True)
 
 @user_blueprint.route('/', methods=['GET'], strict_slashes=False)
+@jwt_required()
 def get_user_profile():
     """ User information stored in the database """
     user_id = request.id

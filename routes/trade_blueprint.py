@@ -1,10 +1,10 @@
+from flask_jwt import jwt_required
+from flask import Blueprint, request, jsonify, abort
 from config import db
 from models.trade import Trade
 from validators.validator import Validator
 
 from schemas.trade_schema import TradeSchema
-from flask import Blueprint, request, jsonify, abort
-
 
 trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trades')
 trade_schema = TradeSchema()
@@ -12,6 +12,7 @@ trade_schemas = TradeSchema(many=True)
 
 
 @trade_blueprint.route('/new_trade', methods=['POST'], strict_slashes=False)
+@jwt_required()
 def create_trade():
     """ Create a trade """
     data = request.get_json()
@@ -33,6 +34,7 @@ def create_trade():
     return jsonify({'message': 'New trade created!'})
 
 @trade_blueprint.route('/update_status/<trade_id>', methods=['PATCH'], strict_slashes=False)
+@jwt_required()
 def update_status(trade_id):
     """ Update a trade """
     trade = Trade.query.filter_by(trade_id=trade_id).first()
