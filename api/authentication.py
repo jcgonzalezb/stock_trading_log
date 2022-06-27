@@ -72,7 +72,7 @@ class LoginApi(Resource):
 
         if check_password_hash(user.password, auth.password):
             token = jwt.encode({'email': user.email, 'exp': datetime.datetime.utcnow(
-            ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+            ) + datetime.timedelta(minutes=60)}, app.config['SECRET_KEY'])
 
             return jsonify({'token': token})
 
