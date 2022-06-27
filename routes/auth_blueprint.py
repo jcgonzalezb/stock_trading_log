@@ -21,7 +21,6 @@ user_schemas = UserSchema(many=True)
 
 
 @auth_blueprint.route('/signup', methods=['POST'], strict_slashes=False)
-@staticmethod
 def register_user() -> Response:
     """
     POST response method for creating user.
@@ -37,7 +36,6 @@ def register_user() -> Response:
     return jsonify({'message': 'New user created!'})
 
 @auth_blueprint.route('/login', methods=['POST'], strict_slashes=False)
-@staticmethod
 def login() -> Response:
     """
     POST response method for retrieving user web token.
