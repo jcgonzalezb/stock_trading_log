@@ -70,8 +70,6 @@ class LoginApi(Resource):
         if not user:
             return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
-        print(user.password)
-
         if check_password_hash(user.password, auth.password):
             token = jwt.encode({'email': user.email, 'exp': datetime.datetime.utcnow(
             ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
