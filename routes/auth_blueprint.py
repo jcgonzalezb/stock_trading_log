@@ -20,7 +20,7 @@ user_schema = UserSchema()
 user_schemas = UserSchema(many=True)
 
 
-@auth_blueprint.route('/signup', methods=['GET'], strict_slashes=False)
+@auth_blueprint.route('/signup', methods=['POST'], strict_slashes=False)
 @staticmethod
 def register_user() -> Response:
     """
