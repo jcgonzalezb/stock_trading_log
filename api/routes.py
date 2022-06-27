@@ -7,5 +7,9 @@ from api.trade import TradesApi
 
 
 def create_routes(api):
-    api.add_resource(TradesApi, '/trade/')
+
     api.add_resource(UsersApi, '/user/')
+
+    api.add_resource(TradesApi, '/trade/')
+    api.add_resource(TradesApi, '/trade/<trade_id>')
+
