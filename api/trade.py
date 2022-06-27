@@ -15,22 +15,23 @@ trade_schemas = TradeSchema(many=True)
 
 class TradesApi(Resource):
     @token_required
-    def get(self) -> Response:
+    def get(current_user, request) -> Response:
         """
         GET response method for all trades.
         JSON Web Token is required.
         :return: JSON object
         """
-        results = Trade.query.all()
+        results = Trade.query.filter_by(user_id=current_user.id).all()
         return jsonify(trade_schemas.dump(results))
 
     @token_required
-    def post(self) -> Response:
+    def post(current_user, request) -> Response:
         """
         POST response method for creating trade.
         JSON Web Token is required.
         :return: JSON object
         """
+        print("va crear un trade")
         data = request.get_json()
         trade_status = data.get('trade_status', None)
         trade = data.get('trade', None)
@@ -39,8 +40,7 @@ class TradesApi(Resource):
         price = data.get('price', None)
         ticker = data.get('ticker', None)
         trade_date = data.get('trade_date', None)
-        user_id = data. get('user_id', None)
-        new_trade = Trade(user_id=user_id, trade_status=trade_status, trade=trade,
+        new_trade = Trade(user_id=current_user.id, trade_status=trade_status, trade=trade,
                           company=company, ticker=ticker, quantity=quantity,
                           price=price, trade_date=trade_date)
         db.session.add(new_trade)
