@@ -4,10 +4,13 @@ from flask_restful import Resource
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 # project resources
+from config import db
 from models.user import User
+from api.errors import unauthorized
 
 # external packages
 import datetime
+import bcrypt
 
 
 class SignUpApi(Resource):
@@ -30,10 +33,14 @@ class SignUpApi(Resource):
         :return: JSON object
         """
         data = request.get_json()
-        post_user = Users(**data)
-        post_user.save()
-        output = {'id': str(post_user.id)}
-        return jsonify({'result': output})
+        email = data.get('email', None)
+        password = data.get('password', None)
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        password = hashed_password.decode()
+        new_user = User(email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({'message': 'New user created!'})
 
 
 class LoginApi(Resource):
@@ -56,7 +63,7 @@ class LoginApi(Resource):
         :return: JSON object
         """
         data = request.get_json()
-        user = Users.objects.get(email=data.get('email'))
+        user = User.objects.get(email=data.get('email'))
         auth_success = user.check_pw_hash(data.get('password'))
         if not auth_success:
             return unauthorized()
