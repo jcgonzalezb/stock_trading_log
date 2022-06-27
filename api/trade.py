@@ -9,7 +9,7 @@ trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)
 
 
-class TradeApi(Resource):
+class TradesApi(Resource):
     def get(self):
         """ Show all trades """
         results = Trade.query.all()
