@@ -5,7 +5,7 @@ from sqlalchemy.exc import NoResultFound
 
 from models.user import User
 from schemas.user_schema import UserSchema
-from api.authenticate import token_required #The token verification script
+from security.authenticate import token_required #The token verification script
 
 user_schema = UserSchema()
 user_schemas = UserSchema(many=True)

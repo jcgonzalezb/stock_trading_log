@@ -7,7 +7,7 @@ from sqlalchemy.exc import NoResultFound
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema
-from api.authenticate import token_required #The token verification script
+from security.authenticate import token_required #The token verification script
 
 trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)

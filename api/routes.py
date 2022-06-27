@@ -2,7 +2,7 @@
 from flask_restful import Api
 
 # project resources
-from api.authentication import SignUpApi, LoginApi
+from security.authentication import SignUpApi, LoginApi
 from api.user import UserApi
 
 from api.trade import TradeApi
