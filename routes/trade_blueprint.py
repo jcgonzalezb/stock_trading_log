@@ -16,7 +16,7 @@ trade_schemas = TradeSchema(many=True)
 
 @trade_blueprint.route('/new', methods=['POST'], strict_slashes=False)
 @token_required
-def create_trade(current_user, request) -> Response:
+def create_trade(current_user) -> Response:
     """
     POST response method for creating trade.
     JSON Web Token is required.
@@ -40,7 +40,7 @@ def create_trade(current_user, request) -> Response:
 
 @trade_blueprint.route('/all', methods=['GET'], strict_slashes=False)
 @token_required
-def all_trades(current_user, request) -> Response:
+def all_trades(current_user) -> Response:
     """
     GET response method for all trades.
     JSON Web Token is required.
@@ -51,7 +51,7 @@ def all_trades(current_user, request) -> Response:
 
 @trade_blueprint.route('/<trade_id>', methods=['GET'], strict_slashes=False)
 @token_required
-def profile_trade(current_user, request, trade_id: str) -> Response:
+def profile_trade(current_user, trade_id: str) -> Response:
     """
     GET response method for single trade.
     :return: JSON object
