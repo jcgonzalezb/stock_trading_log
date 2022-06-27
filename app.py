@@ -1,27 +1,36 @@
 # flask packages
-from flask import app, jsonify
-from flask_restful import Api
-from flask_jwt_extended import JWTManager
+from flask import jsonify, request
+from flask_sqlalchemy import SQLAlchemy
+
+#The token verification script
+from security.authenticate import token_required
 
 # local packages
 from config import app, db
-from api.routes import create_routes
-
-
 from models.user import User
+
+from routes.auth_blueprint import auth_blueprint
+from routes.user_blueprint import user_blueprint
+from routes.trade_blueprint import trade_blueprint
+
+from schemas.ma import ma
+from schemas.trade_schema import TradeSchema
 from schemas.user_schema import UserSchema
-from security.authenticate import token_required #The token verification script
 
+# One response
 user_schema = UserSchema()
+trade_schema = TradeSchema()
+
+# Many responses
 user_schemas = UserSchema(many=True)
-
-# init api and routes
-api = Api(app=app)
-create_routes(api=api)
-
+trade_schemas = TradeSchema(many=True)
 
 # Create the tables that are associated with the models.
 db.create_all()
+
+app.register_blueprint(auth_blueprint)
+app.register_blueprint(user_blueprint)
+app.register_blueprint(trade_blueprint)
 
 @app.route('/')
 def index():
@@ -32,7 +41,6 @@ def index():
 @app.route('/unprotected')
 def unprotected():
     return jsonify({'message' : 'Anyone can view this!'})
-
 
 #Testing user access. Token needed
 @app.route('/protected')
@@ -45,10 +53,6 @@ def get_users_info():
     """ User information stored in the database """
     results = User.query.all()
     return jsonify(user_schemas.dump(results))
-
-
-# init jwt manager
-jwt = JWTManager(app=app)
 
 if __name__ == '__main__':
     # Main entry point when run in stand-alone mode.
