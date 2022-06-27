@@ -1,7 +1,7 @@
 # flask packages
 from flask import Response, request, jsonify
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy.exc import NoResultFound
 
 from models.user import User
 from schemas.user_schema import UserSchema
@@ -13,11 +13,14 @@ user_schemas = UserSchema(many=True)
 
 class UserApi(Resource):
     @token_required
-    def get(self, user_id: str) -> Response:
+    def get(current_user, request, user_id: str) -> Response:
         """
         GET response method for acquiring single user data.
         JSON Web Token is required.
         :return: JSON object
         """
-        result = User.query.filter(user_id=user_id).one()
+        try:
+            result = User.query.filter_by(id=user_id).one()
+        except NoResultFound:
+            return {"message": "User could not be found."}, 400
         return user_schema.jsonify(result)
