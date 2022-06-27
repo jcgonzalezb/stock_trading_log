@@ -1,4 +1,4 @@
-import bcrypt
+from werkzeug.security import safe_str_cmp
 from flask import request
 
 from models.user import User
@@ -11,7 +11,7 @@ def authenticate(email, password):
     and then tell Flask-JWT to store the user's id inside the JWT.
     """
     user = User.query.filter_by(email=email).first()
-    if user and bcrypt.checkpw(password.encode(), user.password.encode()):
+    if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
         return user
 
 
