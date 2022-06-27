@@ -7,13 +7,14 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema
+from authenticate import token_required #The token verification script
 
 trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)
 
 
 class TradesApi(Resource):
-    @jwt_required
+    @token_required
     def get(self) -> Response:
         """
         GET response method for all trades.
@@ -23,7 +24,7 @@ class TradesApi(Resource):
         results = Trade.query.all()
         return jsonify(trade_schemas.dump(results))
 
-    @jwt_required
+    @token_required
     def post(self) -> Response:
         """
         POST response method for creating trade.
@@ -31,23 +32,24 @@ class TradesApi(Resource):
         :return: JSON object
         """
         data = request.get_json()
-        trade_status=data.get('trade_status', None)
-        trade=data.get('trade', None)
-        company=data.get('company', None)
-        quantity=data.get('quantity', None)
-        price=data.get('price', None)
-        ticker=data.get('ticker', None)
-        trade_date=data.get('trade_date', None)
+        trade_status = data.get('trade_status', None)
+        trade = data.get('trade', None)
+        company = data.get('company', None)
+        quantity = data.get('quantity', None)
+        price = data.get('price', None)
+        ticker = data.get('ticker', None)
+        trade_date = data.get('trade_date', None)
         user_id = data. get('user_id', None)
         new_trade = Trade(user_id=user_id, trade_status=trade_status, trade=trade,
-                        company=company, ticker=ticker, quantity=quantity,
-                        price=price, trade_date=trade_date)
+                          company=company, ticker=ticker, quantity=quantity,
+                          price=price, trade_date=trade_date)
         db.session.add(new_trade)
         db.session.commit()
         return jsonify({'message': 'New trade created!'})
 
+
 class TradeApi(Resource):
-    @jwt_required
+    @token_required
     def get(self, trade_id: str) -> Response:
         """
         GET response method for single tarde.
