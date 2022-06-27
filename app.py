@@ -1,14 +1,17 @@
 # flask packages
 from flask import app, jsonify
 from flask_restful import Api
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager
 
 # local packages
 from config import app, db
 from api.routes import create_routes
 
+
 from models.user import User
 from schemas.user_schema import UserSchema
+from api.authenticate import token_required #The token verification script
+
 user_schema = UserSchema()
 user_schemas = UserSchema(many=True)
 
@@ -25,6 +28,18 @@ def index():
     """ Index page. No token needed """
     return jsonify({'message': 'Welcome to the stock trading log!'})
 
+#Testing user access. No token needed
+@app.route('/unprotected')
+def unprotected():
+    return jsonify({'message' : 'Anyone can view this!'})
+
+
+#Testing user access. Token needed
+@app.route('/protected')
+@token_required
+def protected(current_user):
+    return jsonify({'message' : 'This is on available for people with valid tokens.'})
+
 @app.route('/all_users', methods=['GET'])
 def get_users_info():
     """ User information stored in the database """
@@ -34,15 +49,6 @@ def get_users_info():
 
 # init jwt manager
 jwt = JWTManager(app=app)
-
-
-@app.route("/protected", methods=["GET"])
-@jwt_required()
-def protected():
-    # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
-
 
 if __name__ == '__main__':
     # Main entry point when run in stand-alone mode.
