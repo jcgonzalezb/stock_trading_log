@@ -1,6 +1,4 @@
-from flask_marshmallow import Marshmallow
 from schemas.ma import ma
-
 
 class TradeSchema(ma.Schema):
     class Meta:
