@@ -13,7 +13,7 @@ user_schema = UserSchema()
 user_schemas = UserSchema(many=True)
 
 @user_blueprint.route('/<user_id>', methods=['GET'], strict_slashes=False)
-@token_required()
+@token_required
 def get_user_profile(current_user, request, user_id: str) -> Response:
     """
     GET response method for acquiring single user data.

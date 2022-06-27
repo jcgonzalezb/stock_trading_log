@@ -15,7 +15,7 @@ trade_schemas = TradeSchema(many=True)
 
 
 @trade_blueprint.route('/new', methods=['POST'], strict_slashes=False)
-@token_required()
+@token_required
 def create_trade(current_user, request) -> Response:
     """
     POST response method for creating trade.
@@ -63,7 +63,7 @@ def profile_trade(current_user, request, trade_id: str) -> Response:
     return trade_schema.jsonify(result)
 
 @trade_blueprint.route('/update_status/<trade_id>', methods=['PATCH'], strict_slashes=False)
-@token_required()
+@token_required
 def update_status(current_user, request, trade_id) -> Response:
     """ Update a trade """
     trade = Trade.query.filter_by(trade_id=trade_id).first()
