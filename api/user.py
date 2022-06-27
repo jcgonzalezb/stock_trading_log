@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models.user import User
 from schemas.user_schema import UserSchema
-from authenticate import token_required #The token verification script
+from api.authenticate import token_required #The token verification script
 
 user_schema = UserSchema()
 user_schemas = UserSchema(many=True)

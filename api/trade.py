@@ -7,7 +7,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema
-from authenticate import token_required #The token verification script
+from api.authenticate import token_required #The token verification script
 
 trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)
