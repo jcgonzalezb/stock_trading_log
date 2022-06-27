@@ -1,12 +1,10 @@
 # flask packages
 from flask import Response, request, jsonify, make_response
 from flask_restful import Resource
-from flask_jwt_extended import create_access_token, get_jwt_identity
 
 # project resources
 from config import db, app
 from models.user import User
-from api.errors import unauthorized
 
 # external packages
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -65,18 +63,19 @@ class LoginApi(Resource):
         auth = request.authorization
 
         if not auth or not auth.username or not auth.password:
-            return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+            return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
         user = User.query.filter_by(email=auth.username).first()
 
         if not user:
-            return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+            return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
         print(user.password)
 
         if check_password_hash(user.password, auth.password):
-            token = jwt.encode({'emailAddress' : user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+            token = jwt.encode({'email': user.email, 'exp': datetime.datetime.utcnow(
+            ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
-            return jsonify({'token' : token})
+            return jsonify({'token': token})
 
-        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+        return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
