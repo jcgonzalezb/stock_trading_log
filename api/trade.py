@@ -1,7 +1,7 @@
 # flask packages
 from flask import Response, request, jsonify
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy.exc import NoResultFound
 
 # project resources
 from config import db
@@ -50,10 +50,13 @@ class TradesApi(Resource):
 
 class TradeApi(Resource):
     @token_required
-    def get(self, trade_id: str) -> Response:
+    def get(current_user, request, trade_id: str) -> Response:
         """
         GET response method for single tarde.
         :return: JSON object
         """
-        result = Trade.query.filter(trade_id=trade_id).one()
+        try:
+            result = Trade.query.filter_by(id=trade_id).one()
+        except NoResultFound:
+            return {"message": "User could not be found."}, 400
         return trade_schema.jsonify(result)
