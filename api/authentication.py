@@ -1,16 +1,17 @@
 # flask packages
-from flask import Response, request, jsonify
+from flask import Response, request, jsonify, make_response
 from flask_restful import Resource
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, get_jwt_identity
 
 # project resources
-from config import db
+from config import db, app
 from models.user import User
 from api.errors import unauthorized
 
 # external packages
+from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
 import datetime
-import bcrypt
 
 
 class SignUpApi(Resource):
@@ -35,9 +36,8 @@ class SignUpApi(Resource):
         data = request.get_json()
         email = data.get('email', None)
         password = data.get('password', None)
-        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        password = hashed_password.decode()
-        new_user = User(email=email, password=password)
+        hashed_password = generate_password_hash(password, method='sha256')
+        new_user = User(email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'message': 'New user created!'})
@@ -62,16 +62,21 @@ class LoginApi(Resource):
         POST response method for retrieving user web token.
         :return: JSON object
         """
-        data = request.get_json()
-        user = User.objects.get(email=data.get('email'))
-        auth_success = user.check_pw_hash(data.get('password'))
-        if not auth_success:
-            return unauthorized()
-        else:
-            expiry = datetime.timedelta(days=5)
-            access_token = create_access_token(
-                identity=str(user.id), expires_delta=expiry)
-            refresh_token = create_refresh_token(identity=str(user.id))
-            return jsonify({'result': {'access_token': access_token,
-                                       'refresh_token': refresh_token,
-                                       'logged_in_as': f"{user.email}"}})
+        auth = request.authorization
+
+        if not auth or not auth.username or not auth.password:
+            return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+        user = User.query.filter_by(email=auth.username).first()
+
+        if not user:
+            return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+        print(user.password)
+
+        if check_password_hash(user.password, auth.password):
+            token = jwt.encode({'emailAddress' : user.email, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+
+            return jsonify({'token' : token})
+
+        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})

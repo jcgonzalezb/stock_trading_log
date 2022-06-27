@@ -1,7 +1,7 @@
 # flask packages
 from flask import app, jsonify
 from flask_restful import Api
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 
 # local packages
 from config import app, db
@@ -34,6 +34,15 @@ def get_users_info():
 
 # init jwt manager
 jwt = JWTManager(app=app)
+
+
+@app.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
 
 if __name__ == '__main__':
     # Main entry point when run in stand-alone mode.
