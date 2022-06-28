@@ -6,6 +6,8 @@ from sqlalchemy.exc import NoResultFound
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema
+from validators.errors import trade_not_found
+
 
 # The token verification script
 from security.authenticate import token_required
@@ -63,7 +65,7 @@ def profile_trade(current_user, trade_id: str) -> Response:
     try:
         result = Trade.query.filter_by(trade_id=trade_id).one()
     except NoResultFound:
-        return {"message": "Trade could not be found."}, 400
+        return trade_not_found()
     return trade_schema.jsonify(result)
 
 
@@ -79,7 +81,7 @@ def update_status(current_user, trade_id) -> Response:
     """
     trade = Trade.query.filter_by(trade_id=trade_id).one()
     if not trade:
-        return jsonify({'message': 'No trade found!'})
+        return trade_not_found()
 
     if trade.trade_status == 'enable':
         trade.trade_status = 'disable'
@@ -100,7 +102,7 @@ def update_trade(current_user, trade_id: str) -> Response:
     try:
         trade = Trade.query.filter_by(trade_id=trade_id).one()
         if not trade:
-            return jsonify({'message': 'No trade found!'})
+            return trade_not_found()
         if 'trade' in data:
             trade.trade = data.get('trade', None)
         if 'company' in data:
@@ -116,5 +118,5 @@ def update_trade(current_user, trade_id: str) -> Response:
 
         db.session.commit()
     except NoResultFound:
-        return {"message": "Trade could not be found."}, 400
+        return trade_not_found()
     return jsonify({'message': 'The trade has been updated!'})
