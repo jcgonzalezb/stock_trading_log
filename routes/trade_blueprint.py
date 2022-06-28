@@ -9,7 +9,7 @@ from security.authenticate import token_required
 
 from schemas.trade_schema import TradeSchema
 
-trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trades')
+trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trade')
 trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)
 
