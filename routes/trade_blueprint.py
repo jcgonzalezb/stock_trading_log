@@ -2,7 +2,7 @@
 from flask import Response, Blueprint, request, jsonify
 from sqlalchemy.exc import NoResultFound
 
-# local package
+# project resources
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema

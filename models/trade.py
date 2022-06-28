@@ -1,13 +1,17 @@
-""" Holds class Trade"""
-
-from flask_sqlalchemy import SQLAlchemy
+# SQLAlchemy packages
 from sqlalchemy.dialects.mysql import INTEGER
+
+# project resource
 from config import db
 
 
 class Trade(db.Model):
-    """ Representation of trade """
-    __tablename__ = 'trade'
+    """
+    Trade Flask-SQLAlchemy Model
+
+    Represents objects contained in the trades table
+    """
+    __tablename__ = 'trades'
 
     trade_id = db.Column(INTEGER(unsigned=True), primary_key=True,
                          autoincrement=True, nullable=False)
