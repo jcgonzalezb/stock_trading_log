@@ -16,7 +16,7 @@ class Trade(db.Model):
     trade_id = db.Column(INTEGER(unsigned=True), primary_key=True,
                          autoincrement=True, nullable=False)
     user_id = db.Column(INTEGER(unsigned=True), db.ForeignKey(
-        'user.id'), nullable=False)
+        'users.id'), nullable=False)
     trade_status = db.Column(db.String(60), nullable=False)
     trade = db.Column(db.String(60), nullable=False)
     company = db.Column(db.String(128), nullable=False)
