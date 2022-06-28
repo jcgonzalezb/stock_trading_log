@@ -1,7 +1,7 @@
 # flask packages
 from flask import Response, request, jsonify, Blueprint
 
-# local package
+# project resources
 from config import db
 from models.user import User
 from schemas.user_schema import UserSchema

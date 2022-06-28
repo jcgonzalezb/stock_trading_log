@@ -1,18 +1,15 @@
 # flask packages
 from flask import Blueprint, Response, request, jsonify, make_response
-from config import db
-from models.user import User
-from schemas.user_schema import UserSchema
-
-# project resources
-from config import db, app
-from models.user import User
 
 # external packages
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
 
+# project resources
+from config import db, app
+from models.user import User
+from schemas.user_schema import UserSchema
 
 auth_blueprint = Blueprint('auth_blueprint', __name__, url_prefix='/')
 user_schema = UserSchema()
