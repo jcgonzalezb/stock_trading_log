@@ -7,11 +7,11 @@ GRANT ALL PRIVILEGES ON stock_log_db.* TO root@localhost;
 USE stock_log_db;
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
-DROP TABLE IF EXISTS trade;
-DROP TABLE IF EXISTS user;
-CREATE TABLE user (
+DROP TABLE IF EXISTS trades;
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     email VARCHAR(128) UNIQUE NOT NULL,
     password VARCHAR(128) NOT NULL,
@@ -22,10 +22,10 @@ CREATE TABLE user (
 
 
 --
--- Table structure for table `trade`
+-- Table structure for table `trades`
 --
-DROP TABLE IF EXISTS trade;
-CREATE TABLE trade (
+DROP TABLE IF EXISTS trades;
+CREATE TABLE trades (
 	trade_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	user_id INT UNSIGNED NOT NULL,
 	trade_status VARCHAR(60) NOT NULL,
@@ -36,5 +36,5 @@ CREATE TABLE trade (
     price FLOAT NOT NULL,
 	trade_date date NOT NULL,
     PRIMARY KEY (`trade_id`),
-	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
