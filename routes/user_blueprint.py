@@ -24,4 +24,4 @@ def get_user_profile(current_user, user_id: str) -> Response:
         result = User.query.filter_by(id=user_id).one()
     except NoResultFound:
         return {"message": "User could not be found."}, 400
-    return user_schema.jsonify(result)
+    return user_schema.jsonify(result), 200
