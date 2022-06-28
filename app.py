@@ -13,7 +13,6 @@ from routes.auth_blueprint import auth_blueprint
 from routes.user_blueprint import user_blueprint
 from routes.trade_blueprint import trade_blueprint
 
-from schemas.ma import ma
 from schemas.trade_schema import TradeSchema
 from schemas.user_schema import UserSchema
 

@@ -2,9 +2,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# Connection to the database
+# Create flask app
 app = Flask(__name__)
 
+# Connection to the database
 uri = 'mysql+pymysql://root:@localhost:3306/stock_log_db'
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
