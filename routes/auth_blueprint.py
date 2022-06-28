@@ -3,7 +3,6 @@ from flask import Blueprint, Response, request, jsonify, make_response
 from config import db
 from models.user import User
 from schemas.user_schema import UserSchema
-from sqlalchemy.exc import NoResultFound
 
 # project resources
 from config import db, app
@@ -36,6 +35,7 @@ def register_user() -> Response:
     db.session.commit()
     return jsonify({'message': 'New user created!'})
 
+
 @auth_blueprint.route('/login', methods=['POST'], strict_slashes=False)
 def login() -> Response:
     """
@@ -45,12 +45,16 @@ def login() -> Response:
     auth = request.authorization
 
     if not auth or not auth.username or not auth.password:
-        return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+        return make_response('Could not verify',
+                             401, {'WWW-Authenticate':
+                                   'Basic realm="Login required!"'})
 
     user = User.query.filter_by(email=auth.username).first()
 
     if not user:
-        return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+        return make_response('Could not verify',
+                             401, {'WWW-Authenticate':
+                                   'Basic realm="Login required!"'})
 
     if check_password_hash(user.password, auth.password):
         token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
@@ -58,4 +62,6 @@ def login() -> Response:
 
         return jsonify({'token': token})
 
-    return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+    return make_response('Could not verify',
+                         401, {'WWW-Authenticate':
+                               'Basic realm="Login required!"'})
