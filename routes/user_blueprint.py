@@ -1,5 +1,7 @@
 # flask packages
 from flask import Response, request, jsonify, Blueprint
+
+# local package
 from config import db
 from models.user import User
 from schemas.user_schema import UserSchema
@@ -32,7 +34,7 @@ def get_user_profile(current_user) -> Response:
 @token_required
 def update_user(current_user) -> Response:
     """
-    PATCH response method for updating a single user data.
+    PATCH response method for updating a single user.
     JSON Web Token is required.
     :return: JSON object
     """

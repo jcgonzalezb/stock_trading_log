@@ -1,13 +1,14 @@
 # flask packages
-from flask import Response, Blueprint, request, jsonify, abort
+from flask import Response, Blueprint, request, jsonify
+from sqlalchemy.exc import NoResultFound
+
+# local package
 from config import db
 from models.trade import Trade
-from sqlalchemy.exc import NoResultFound
+from schemas.trade_schema import TradeSchema
 
 # The token verification script
 from security.authenticate import token_required
-
-from schemas.trade_schema import TradeSchema
 
 trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trade')
 trade_schema = TradeSchema()
@@ -56,6 +57,7 @@ def all_trades(current_user) -> Response:
 def profile_trade(current_user, trade_id: str) -> Response:
     """
     GET response method for single trade.
+    JSON Web Token is required.
     :return: JSON object
     """
     try:
@@ -69,7 +71,12 @@ def profile_trade(current_user, trade_id: str) -> Response:
                        methods=['PATCH'], strict_slashes=False)
 @token_required
 def update_status(current_user, trade_id) -> Response:
-    """ Update a trade """
+    """
+    PATCH response method for updating the status of single trade.
+    PATCH is used instead of DELETE to make the trade unavailable.
+    JSON Web Token is required.
+    :return: JSON object
+    """
     trade = Trade.query.filter_by(trade_id=trade_id).one()
     if not trade:
         return jsonify({'message': 'No trade found!'})
@@ -85,6 +92,7 @@ def update_status(current_user, trade_id) -> Response:
 def update_trade(current_user, trade_id: str) -> Response:
     """
     PATCH response method for updating a single trade.
+    JSON Web Token is required.
     :return: JSON object
     """
     data = request.get_json()
