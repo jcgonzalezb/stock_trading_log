@@ -59,14 +59,14 @@ def profile_trade(current_user, trade_id: str) -> Response:
     try:
         result = Trade.query.filter_by(trade_id=trade_id).one()
     except NoResultFound:
-        return {"message": "User could not be found."}, 400
+        return {"message": "Trade could not be found."}, 400
     return trade_schema.jsonify(result)
 
 @trade_blueprint.route('/update_status/<trade_id>', methods=['PATCH'], strict_slashes=False)
 @token_required
 def update_status(current_user, trade_id) -> Response:
     """ Update a trade """
-    trade = Trade.query.filter_by(trade_id=trade_id).first()
+    trade = Trade.query.filter_by(trade_id=trade_id).one()
     if not trade:
         return jsonify({'message': 'No trade found!'})
 
@@ -82,11 +82,26 @@ def update_trade(current_user, trade_id: str) -> Response:
     PATCH response method for updating a single trade.
     :return: JSON object
     """
-    request_params = request.get_json()
-    updateObject = request_params
+    data = request.get_json()
 
     try:
-        result = Trade.query.filter_by(trade_id=trade_id).one()
+        trade = Trade.query.filter_by(trade_id=trade_id).one()
+        if not trade:
+            return jsonify({'message': 'No trade found!'})
+        if 'trade' in data:
+            trade.trade = data.get('trade', None)
+        if 'company' in data:
+            trade.company = data.get('company', None)
+        if 'ticker' in data:
+            trade.ticker = data.get('ticker', None)
+        if 'quantity' in data:
+            trade.quantity = data.get('quantity', None)
+        if 'price' in data:
+            trade.price = data.get('price', None)
+        if 'trade_date' in data:
+            trade.trade_date = data.get('trade_date', None)
+
+        db.session.commit()
     except NoResultFound:
-        return {"message": "User could not be found."}, 400
-    return trade_schema.jsonify(result)
+        return {"message": "Trade could not be found."}, 400
+    return jsonify({'message': 'The trade has been updated!'})
