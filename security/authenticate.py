@@ -9,12 +9,18 @@ from models.user import User
 import jwt
 from functools import wraps
 
-# Decorator for token support
-
 
 def token_required(f):
+    """
+    This function will create a custom decorator with the
+    code required to create and validate tokens.
+    """
     @wraps(f)
     def decorated(*args, **kwargs):
+        """
+        This function will create an object corresponding
+        to the current user.
+        """
         token = None
 
         if 'token' in request.headers:
@@ -26,8 +32,7 @@ def token_required(f):
         try:
             data = jwt.decode(
                 token, app.config['SECRET_KEY'], algorithms=['HS256', ])
-            current_user = User.query.filter_by(
-                id=data['id']).first()
+            current_user = User.query.filter_by(id=data['id']).first()
         except Exception as e:
             return jsonify({'message': 'Token is invalid!'}), 401
 

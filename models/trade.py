@@ -1,4 +1,4 @@
-# SQLAlchemy packages
+# SQLAlchemy package
 from sqlalchemy.dialects.mysql import INTEGER
 
 # project resource

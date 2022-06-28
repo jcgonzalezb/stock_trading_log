@@ -23,8 +23,7 @@ def get_user_profile(current_user) -> Response:
     JSON Web Token is required.
     :return: JSON object
     """
-    head = request.headers
-    token = head['token']
+    token = request.headers['token']
     decoded = jwt.decode(token, options={"verify_signature": False})
     user = User.query.filter_by(id=decoded["id"]).one()
     return user_schema.jsonify(user), 200
@@ -38,8 +37,7 @@ def update_user(current_user) -> Response:
     JSON Web Token is required.
     :return: JSON object
     """
-    head = request.headers
-    token = head['token']
+    token = request.headers['token']
     decoded = jwt.decode(token, options={"verify_signature": False})
     user = User.query.filter_by(id=decoded["id"]).one()
 
