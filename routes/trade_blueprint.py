@@ -64,7 +64,7 @@ def profile_trade(current_user, trade_id: str) -> Response:
 
 @trade_blueprint.route('/update_status/<trade_id>', methods=['PATCH'], strict_slashes=False)
 @token_required
-def update_status(current_user, request, trade_id) -> Response:
+def update_status(current_user, trade_id) -> Response:
     """ Update a trade """
     trade = Trade.query.filter_by(trade_id=trade_id).first()
     if not trade:
