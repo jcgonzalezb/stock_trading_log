@@ -27,7 +27,7 @@ def token_required(f):
             data = jwt.decode(
                 token, app.config['SECRET_KEY'], algorithms=['HS256', ])
             current_user = User.query.filter_by(
-                email=data['email']).first()
+                id=data['id']).first()
         except Exception as e:
             return jsonify({'message': 'Token is invalid!'}), 401
 
