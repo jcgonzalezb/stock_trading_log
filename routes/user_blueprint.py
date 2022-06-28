@@ -8,7 +8,7 @@ from schemas.user_schema import UserSchema
 from security.authenticate import token_required
 import jwt
 
-user_blueprint = Blueprint('user_blueprint', __name__, url_prefix='/user')
+user_blueprint = Blueprint('user_blueprint', __name__, url_prefix='/users')
 user_schema = UserSchema()
 user_schemas = UserSchema(many=True)
 

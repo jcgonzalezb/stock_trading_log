@@ -9,7 +9,7 @@ from security.authenticate import token_required
 
 from schemas.trade_schema import TradeSchema
 
-trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trade')
+trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trades')
 trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)
 
@@ -75,3 +75,18 @@ def update_status(current_user, trade_id) -> Response:
         db.session.commit()
         return jsonify({'message': 'The trade has been deleted!'})
 
+@trade_blueprint.route('/<trade_id>', methods=['PATCH'], strict_slashes=False)
+@token_required
+def update_trade(current_user, trade_id: str) -> Response:
+    """
+    PATCH response method for updating a single trade.
+    :return: JSON object
+    """
+    request_params = request.get_json()
+    updateObject = request_params
+
+    try:
+        result = Trade.query.filter_by(trade_id=trade_id).one()
+    except NoResultFound:
+        return {"message": "User could not be found."}, 400
+    return trade_schema.jsonify(result)
