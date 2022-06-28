@@ -10,7 +10,7 @@ from schemas.trade_schema import TradeSchema
 # The token verification script
 from security.authenticate import token_required
 
-trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trade')
+trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trades')
 trade_schema = TradeSchema()
 trade_schemas = TradeSchema(many=True)
 
