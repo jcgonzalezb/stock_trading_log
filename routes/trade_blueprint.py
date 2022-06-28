@@ -6,8 +6,8 @@ from sqlalchemy.exc import NoResultFound
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema
-from validators.errors import trade_not_found
-
+from validators.errors import trade_not_found, forbidden
+from validators.errors import forbidden_status, forbidden_new
 
 # The token verification script
 from security.authenticate import token_required
@@ -27,12 +27,15 @@ def create_trade(current_user) -> Response:
     """
     data = request.get_json()
 
+    if 'trade_id' or 'user_id' in data:
+        return forbidden_new()
+
     trade_status = data.get('trade_status', None)
     trade = data.get('trade', None)
     company = data.get('company', None)
+    ticker = data.get('ticker', None)
     quantity = data.get('quantity', None)
     price = data.get('price', None)
-    ticker = data.get('ticker', None)
     trade_date = data.get('trade_date', None)
     new_trade = Trade(user_id=current_user.id, trade_status=trade_status,
                       trade=trade, company=company, ticker=ticker,
@@ -103,6 +106,13 @@ def update_trade(current_user, trade_id: str) -> Response:
         trade = Trade.query.filter_by(trade_id=trade_id).one()
         if not trade:
             return trade_not_found()
+        
+        if data.get('trade_status') == 'disable':
+            return forbidden_status()
+        
+        if 'trade_id' or 'user_id' or 'trade_status' in data:
+            return forbidden()
+        
         if 'trade' in data:
             trade.trade = data.get('trade', None)
         if 'company' in data:

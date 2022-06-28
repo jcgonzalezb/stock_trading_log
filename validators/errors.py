@@ -20,6 +20,15 @@ def forbidden() -> Response:
     return resp
 
 
+def forbidden_new() -> Response:
+    msg1 = "The trade_id or user_id cannot be inserted."
+    msg2 = "The current user is not authorized to take this action."
+    output = {"message": msg1 + msg2}
+    resp = jsonify(output)
+    resp.status_code = 403
+    return resp
+
+
 def forbidden_status() -> Response:
     msg1 = "The trade_status cannot be changed."
     msg2 = "The trade_status is currently in disable."
