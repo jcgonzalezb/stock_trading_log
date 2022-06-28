@@ -1,9 +1,8 @@
 # flask packages
-from flask import Response, request, jsonify, Blueprint, abort
+from flask import Response, request, jsonify, Blueprint
 from config import db
 from models.user import User
 from schemas.user_schema import UserSchema
-from sqlalchemy.exc import NoResultFound
 
 #The token verification script
 from security.authenticate import token_required
