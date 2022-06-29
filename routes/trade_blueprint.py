@@ -6,8 +6,8 @@ from sqlalchemy.exc import NoResultFound
 from config import db
 from models.trade import Trade
 from schemas.trade_schema import TradeSchema
-from validators.errors import trade_not_found, forbidden
-from validators.errors import forbidden_status, forbidden_new
+from validators.errors import trade_not_found, forbidden, empty_data
+from validators.errors import forbidden_status, forbidden_new_trade
 
 # The token verification script
 from security.authenticate import token_required
@@ -26,9 +26,10 @@ def create_trade(current_user) -> Response:
     :return: JSON object
     """
     data = request.get_json()
-
+    if data is None:
+        return empty_data()
     if 'trade_id' or 'user_id' in data:
-        return forbidden_new()
+        return forbidden_new_trade()
 
     trade_status = data.get('trade_status', None)
     trade = data.get('trade', None)
@@ -66,10 +67,10 @@ def profile_trade(current_user, trade_id: str) -> Response:
     :return: JSON object
     """
     try:
-        result = Trade.query.filter_by(trade_id=trade_id).one()
+        trade = Trade.query.filter_by(trade_id=trade_id).one()
     except NoResultFound:
         return trade_not_found()
-    return trade_schema.jsonify(result)
+    return trade_schema.jsonify(trade)
 
 
 @trade_blueprint.route('/update_status/<trade_id>',
@@ -82,14 +83,14 @@ def update_status(current_user, trade_id) -> Response:
     JSON Web Token is required.
     :return: JSON object
     """
-    trade = Trade.query.filter_by(trade_id=trade_id).one()
-    if not trade:
+    try:
+        trade = Trade.query.filter_by(trade_id=trade_id).one()
+        if trade.trade_status == 'enable':
+            trade.trade_status = 'disable'
+            db.session.commit()
+            return jsonify({'message': 'The trade has been deleted!'})
+    except NoResultFound:
         return trade_not_found()
-
-    if trade.trade_status == 'enable':
-        trade.trade_status = 'disable'
-        db.session.commit()
-        return jsonify({'message': 'The trade has been deleted!'})
 
 
 @trade_blueprint.route('/<trade_id>', methods=['PATCH'], strict_slashes=False)
@@ -101,18 +102,20 @@ def update_trade(current_user, trade_id: str) -> Response:
     :return: JSON object
     """
     data = request.get_json()
+    if data is None:
+        return empty_data()
 
     try:
         trade = Trade.query.filter_by(trade_id=trade_id).one()
         if not trade:
             return trade_not_found()
-        
+
         if data.get('trade_status') == 'disable':
             return forbidden_status()
-        
+
         if 'trade_id' or 'user_id' or 'trade_status' in data:
             return forbidden()
-        
+
         if 'trade' in data:
             trade.trade = data.get('trade', None)
         if 'company' in data:

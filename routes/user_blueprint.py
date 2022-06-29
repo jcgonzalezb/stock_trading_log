@@ -5,6 +5,7 @@ from flask import Response, request, jsonify, Blueprint
 from config import db
 from models.user import User
 from schemas.user_schema import UserSchema
+from validators.errors import forbidden_update_user, empty_data
 
 # The token verification script
 from security.authenticate import token_required
@@ -42,6 +43,10 @@ def update_user(current_user) -> Response:
     user = User.query.filter_by(id=decoded["id"]).one()
 
     data = request.get_json()
+    if data is None:
+        return empty_data()
+    if 'id' or 'email' or 'password' in data:
+        return forbidden_update_user()
     if 'name' in data:
         user.name = data.get('name', None)
         db.session.commit()

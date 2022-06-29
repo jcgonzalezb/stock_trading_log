@@ -10,6 +10,8 @@ import datetime
 from config import db, app
 from models.user import User
 from schemas.user_schema import UserSchema
+from validators.errors import empty_data, forbidden_new_user
+from validators.errors import forbidden_register
 
 auth_blueprint = Blueprint('auth_blueprint', __name__, url_prefix='/')
 user_schema = UserSchema()
@@ -23,7 +25,17 @@ def register_user() -> Response:
     :return: JSON object
     """
     data = request.get_json()
+    if data is None:
+        return empty_data()
+    if 'id' in data:
+        return forbidden_new_user()
+
     email = data.get('email', None)
+
+    user = User.query.filter_by(email=email).first()
+    if user is not None:
+        return forbidden_register()
+
     password = data.get('password', None)
     name = data.get('name', None)
     hashed_password = generate_password_hash(password, method='sha256')
