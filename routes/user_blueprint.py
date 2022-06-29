@@ -43,7 +43,7 @@ def update_user(current_user) -> Response:
     user = User.query.filter_by(id=decoded["id"]).one()
 
     data = request.get_json()
-    if data is None:
+    if len(data) == 0:
         return empty_data()
     if 'id' or 'email' or 'password' in data:
         return forbidden_update_user()

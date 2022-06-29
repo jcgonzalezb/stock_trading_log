@@ -25,7 +25,7 @@ def register_user() -> Response:
     :return: JSON object
     """
     data = request.get_json()
-    if data is None:
+    if len(data) == 0:
         return empty_data()
     if 'id' in data:
         return forbidden_new_user()

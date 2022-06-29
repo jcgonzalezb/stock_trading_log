@@ -26,7 +26,7 @@ def create_trade(current_user) -> Response:
     :return: JSON object
     """
     data = request.get_json()
-    if data is None:
+    if len(data) == 0:
         return empty_data()
     if 'trade_id' or 'user_id' in data:
         return forbidden_new_trade()
@@ -102,7 +102,7 @@ def update_trade(current_user, trade_id: str) -> Response:
     :return: JSON object
     """
     data = request.get_json()
-    if data is None:
+    if len(data) == 0:
         return empty_data()
 
     try:
