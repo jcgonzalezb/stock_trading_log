@@ -28,7 +28,7 @@ def create_trade(current_user) -> Response:
     data = request.get_json()
     if len(data) == 0:
         return empty_data()
-    if 'trade_id' or 'user_id' in data:
+    if 'trade_id' in data or 'user_id' in data:
         return forbidden_new_trade()
 
     trade_status = data.get('trade_status', None)
@@ -113,7 +113,7 @@ def update_trade(current_user, trade_id: str) -> Response:
         if data.get('trade_status') == 'disable':
             return forbidden_status()
 
-        if 'trade_id' or 'user_id' or 'trade_status' in data:
+        if 'trade_id' in data or 'user_id' in data or 'trade_status' in data:
             return forbidden()
 
         if 'trade' in data:

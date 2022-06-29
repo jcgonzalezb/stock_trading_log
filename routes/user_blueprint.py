@@ -45,11 +45,7 @@ def update_user(current_user) -> Response:
     data = request.get_json()
     if len(data) == 0:
         return empty_data()
-    if 'id' in data:
-        return forbidden_update_user()
-    if 'email' in data:
-        return forbidden_update_user()
-    if 'password' in data:
+    if 'id' in data or 'email' in data or 'password' in data:
         return forbidden_update_user()
     if 'name' in data:
         user.name = data.get('name', None)
