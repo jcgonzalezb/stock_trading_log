@@ -1,8 +1,12 @@
-from flask_marshmallow import Marshmallow
+# local package
 from schemas.ma import ma
 
 
 class UserSchema(ma.Schema):
+    """
+    User Marshmallow Schema
+    Marshmallow schema used for loading Users
+    """
     class Meta:
-        fields = ("user_id", "user_name", "email",
-                  "hashed_password", "session_id")
+        """ Fields to expose """
+        fields = ("id", "email", "password", "name")

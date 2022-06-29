@@ -1,24 +1,20 @@
-""" Holds class User"""
+# SQLAlchemy package
+from sqlalchemy.dialects.mysql import INTEGER
 
-from flask_sqlalchemy import SQLAlchemy
+# project resource
 from config import db
 
 
 class User(db.Model):
-    """ Representation of user """
-    __tablename__ = 'user'
+    """
+    User Flask-SQLAlchemy Model
 
-    user_id = db.Column(db.String(60), primary_key=True, nullable=False)
-    user_name = db.Column(db.String(128), nullable=False)
+    Represents objects contained in the users table
+    """
+    __tablename__ = 'users'
+
+    id = db.Column(INTEGER(unsigned=True), primary_key=True,
+                   autoincrement=True, nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)
-    hashed_password = db.Column(db.String(128), nullable=False)
-    session_id = db.Column(db.String(128), nullable=False)
-
-    def __init__(self, user_id, user_name, email, hashed_password, session_id):
-        """ Python class constructor function job is to
-        initialize the instance of the class User """
-        self.user_id = user_id
-        self.user_name = user_name
-        self.email = email
-        self.hashed_password = hashed_password
-        self.session_id = session_id
+    password = db.Column(db.String(128), nullable=False)
+    name = db.Column(db.String(128))
