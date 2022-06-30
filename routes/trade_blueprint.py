@@ -5,12 +5,15 @@ from sqlalchemy.exc import NoResultFound
 # project resources
 from config import db
 from models.trade import Trade
+from models.user import User
 from schemas.trade_schema import TradeSchema
 from validators.errors import trade_not_found, forbidden, empty_data
 from validators.errors import forbidden_status, forbidden_new_trade
+from validators.errors import forbidden_trade
 
 # The token verification script
 from security.authenticate import token_required
+import jwt
 
 trade_blueprint = Blueprint('trade_blueprint', __name__, url_prefix='/trades')
 trade_schema = TradeSchema()
@@ -54,8 +57,8 @@ def all_trades(current_user) -> Response:
     JSON Web Token is required.
     :return: JSON object
     """
-    results = Trade.query.filter_by(user_id=current_user.id).all()
-    return jsonify(trade_schemas.dump(results))
+    trade = Trade.query.filter_by(user_id=current_user.id).all()
+    return jsonify(trade_schemas.dump(trade))
 
 
 @trade_blueprint.route('/<trade_id>', methods=['GET'], strict_slashes=False)
@@ -66,8 +69,13 @@ def profile_trade(current_user, trade_id: str) -> Response:
     JSON Web Token is required.
     :return: JSON object
     """
+    token = request.headers['token']
+    decoded = jwt.decode(token, options={"verify_signature": False})
+    user = User.query.filter_by(id=decoded["id"]).one()
     try:
         trade = Trade.query.filter_by(trade_id=trade_id).one()
+        if user.id != trade.user_id:
+            return forbidden_trade()
     except NoResultFound:
         return trade_not_found()
     return trade_schema.jsonify(trade)
@@ -84,7 +92,14 @@ def update_status(current_user, trade_id) -> Response:
     :return: JSON object
     """
     try:
+        token = request.headers['token']
+        decoded = jwt.decode(token, options={"verify_signature": False})
+        user = User.query.filter_by(id=decoded["id"]).one()
         trade = Trade.query.filter_by(trade_id=trade_id).one()
+        if user.id != trade.user_id:
+            return forbidden_trade()
+        if trade.trade_status == 'disable':
+            return forbidden_status()
         if trade.trade_status == 'enable':
             trade.trade_status = 'disable'
             db.session.commit()
@@ -104,16 +119,17 @@ def update_trade(current_user, trade_id: str) -> Response:
     data = request.get_json()
     if len(data) == 0:
         return empty_data()
-
-    if 'trade_id' in data or 'user_id' in data or 'trade_status' in data:
-        return forbidden()
-
     try:
+        token = request.headers['token']
+        decoded = jwt.decode(token, options={"verify_signature": False})
+        user = User.query.filter_by(id=decoded["id"]).one()
         trade = Trade.query.filter_by(trade_id=trade_id).one()
-        if not trade:
-            return trade_not_found()
+        if user.id != trade.user_id:
+            return forbidden_trade()
         if trade.trade_status == 'disable':
             return forbidden_status()
+        if 'trade_id' in data or 'user_id' in data or 'trade_status' in data:
+            return forbidden()
         if 'trade' in data:
             trade.trade = data.get('trade', None)
         if 'company' in data:
@@ -126,7 +142,6 @@ def update_trade(current_user, trade_id: str) -> Response:
             trade.price = data.get('price', None)
         if 'trade_date' in data:
             trade.trade_date = data.get('trade_date', None)
-
         db.session.commit()
     except NoResultFound:
         return trade_not_found()

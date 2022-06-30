@@ -15,6 +15,19 @@ def empty_data() -> Response:
     return resp
 
 
+def forbidden_register() -> Response:
+    """
+    This function will return an error message when the user
+    already exists.
+    """
+    msg1 = "The user already exists."
+    msg2 = "The current user is not authorized to take this action."
+    output = {"message": msg1 + ' ' + msg2}
+    resp = jsonify(output)
+    resp.status_code = 403
+    return resp
+
+
 def forbidden_new_user() -> Response:
     """
     This function will return an error message
@@ -94,12 +107,12 @@ def forbidden_status() -> Response:
     return resp
 
 
-def forbidden_register() -> Response:
+def forbidden_trade() -> Response:
     """
-    This function will return an error message when the user
-    already exists.
+    This function will return an error message when the current user tries
+    to access the trade profile of another user.
     """
-    msg1 = "The user already exists."
+    msg1 = "The current user cannot access the trade profile of another user."
     msg2 = "The current user is not authorized to take this action."
     output = {"message": msg1 + ' ' + msg2}
     resp = jsonify(output)
