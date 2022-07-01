@@ -29,16 +29,19 @@ This is the list of available endpoints for this project.
 
 **Index**
 
-
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
 |GET             |```/```                        |Welcome message to the user.  |
 |GET             |```/unprotected```             |Testing user access. No token needed.|
-|GET             |```/protected```               |Testing user access. JSON Web Token is required.|
-|GET             |```/all_users```               |Returns all users in the database.|
+|GET             |```/protected```               |Testing user access. JSON Web Token (JWT) is required.|
+|GET             |```/all_users```               |Return all users in the database.|
 
+**Authentication**
 
-
+|Method          |Path                           |Description                  |
+|----------------|-------------------------------|-----------------------------|
+|POST            |```/signup```                  |Method for creating user. Return a user creation confirmation (JSON object). |
+|POST            |```/login```             	 |Method for retrieving user web token. Return a JWT (JSON object) |
 
 
 
