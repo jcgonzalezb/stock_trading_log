@@ -3,6 +3,15 @@
 
 
 
+##  Environment
+This project was developed on Ubuntu 20.22 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
+
+
+
+
+
+
+
 ## Installation
 
 1. Clone this repository
