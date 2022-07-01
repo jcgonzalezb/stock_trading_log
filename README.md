@@ -11,9 +11,9 @@ This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask fr
 
 # File Descriptions
 
-```app.py``` - contains the entry point of the API.
+- ```app.py``` - contains the entry point of the API.
 
-```models/``` contains classes used for this project:
+- ```models/``` contains classes used for this project.
 ```routes/``` contains endpoints implemented for the API:
 ```routes/auth_blueprint.py``` implemented routes to create users and login.
 ```routes/index_blueprint.py``` implemented routes to test authorization and welcome the user to the API.
