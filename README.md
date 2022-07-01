@@ -1,14 +1,27 @@
 
 
 
+# Stock Trading Log REST API
+> This project is an HTTP server REST API implementation
+
 
 
 ##  Environment
-This project was developed on Ubuntu 20.22 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
+This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
 
+# File Descriptions
 
+'app.py' - contains the entry point of the API.
 
-
+'models/' contains classes used for this project:
+'routes/' contains endpoints implemented for the API:
+'routes/auth_blueprint.py' implemented routes to create users and login.
+'routes/index_blueprint.py' implemented routes to test authorization and welcome the user to the API.
+'routes/user_blueprint.py' implemented routes to read and update users.
+'routes/trade_blueprint.py' implemented routes to create, read and udpate users.
+'security/' contains functions used to encrypt and decrypt tokens to identify users for this project.
+'validators/' contains functions used to validate request parameters.
+'schemas/' contains methods to serialize and deserialize the data. 
 
 
 
