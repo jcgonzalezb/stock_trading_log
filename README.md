@@ -32,34 +32,33 @@ This is the list of available endpoints for this project.
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
 |GET             |```/```                        |Welcome message to the user.  |
-|GET             |```/unprotected```             |Testing user access. No token needed.|
-|GET             |```/protected```               |Testing user access. JSON Web Token (JWT) is required.|
+|GET             |```/unprotected```             |Test user access. No token needed.|
+|GET             |```/protected```               |Test user access. JSON Web Token (JWT) is required.|
 |GET             |```/all_users```               |Return all users in the database.|
 
 **Authentication**
 
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
-|POST            |```/signup```                  |Method for creating user. Return a creation confirmation (JSON object). |
-|POST            |```/login```             	 |Method for retrieving user web token. Return a JWT (JSON object) |
+|POST            |```/signup```                  |Create a new user. Return a creation confirmation (JSON object). |
+|POST            |```/login```             	 |Retrieve user web token. Return a JWT (JSON object) |
 
 **User**
 
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
-|GET            |```/users/profile```            |Method for acquiring single user data. JWT is required. Return user profile (JSON object). |
-|PATCH            |```/users/update```       	 |Method for updating a single user. JWT is required. Return a update confirmation (JSON object). |
+|GET            |```/users/profile```            |Acquire a single user data. JWT is required. Return user profile (JSON object). |
+|PATCH            |```/users/update```       	 |Update a single user. JWT is required. Return a update confirmation (JSON object). |
 
 **Trade**
 
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
-|POST            |```/trades/new```|Method for creating trade. JWT is required. Return a creation confirmation (JSON object). |
-|GET             |```/trades/<trade:id>```|Method for acquiring single trade data. JWT is required. Return trade profile (JSON object). |
-|GET             |```/trades/all```|Method for acquiring all trade data from user. JWT is required. Return profile of all trades created by user(JSON object). |
-|PATCH            |```/trades/<trade_id>```|Method for updating the status of single trade.
-    PATCH is used instead of DELETE to make the trade unavailable. Return a update confirmation (JSON object). |
-|PATCH            |```/trades/update_status/<trade_id>```|Method for updating a single trade. JWT is required. Return a update confirmation (JSON object). |
+|POST            |```/trades/new```|Create a new trade. JWT is required. Return a creation confirmation (JSON object). |
+|GET             |```/trades/<trade:id>```|Acquire a single trade data. JWT is required. Return trade profile (JSON object). |
+|GET             |```/trades/all```|Acquire all trade data from user. JWT is required. Return profile of all trades created by user(JSON object). |
+|PATCH            |```/trades/<trade_id>```|Update the status of a single trade. PATCH is used instead of DELETE to make the trade unavailable. Return a update confirmation (JSON object). |
+|PATCH            |```/trades/update_status/<trade_id>```|Update a single trade. JWT is required. Return a update confirmation (JSON object). |
 
 ## Installation
 
