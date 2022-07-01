@@ -32,10 +32,10 @@ This is the list of available endpoints for this project.
 
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
-|GET             |```/```                        |Welcome message to the user  |
-|                |```/unprotected```             |Testing user access. No token needed  |
-
-
+|GET             |```/```                        |Welcome message to the user.  |
+|GET             |```/unprotected```             |Testing user access. No token needed.|
+|GET             |```/protected```               |Testing user access. JSON Web Token is required.|
+|GET             |```/all_users```               |Returns all users in the database.|
 
 
 
