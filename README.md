@@ -33,7 +33,7 @@ This is the list of available endpoints for this project.
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
 |GET             |```/```                        |Welcome message to the user  |
-
+|                |```/unprotected```             |Testing user access. No token needed  |
 
 
 
