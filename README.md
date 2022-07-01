@@ -1,7 +1,64 @@
 
 
 
+# Stock Trading Log REST API
+> This project is an HTTP server REST API implementation
 
+
+
+##  Environment
+This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
+
+## File Descriptions
+
+- ```app.py```  contains the entry point of the API.
+- ```models/``` contains classes used for this project.
+- ```routes/``` contains endpoints implemented for the API:
+- ```routes/auth_blueprint.py``` implemented routes to create users and login.
+- ```routes/index_blueprint.py``` implemented routes to test authorization and welcome the user to the API.
+- ```routes/user_blueprint.py``` implemented routes to read and update users.
+- ```routes/trade_blueprint.py``` implemented routes to create, read and udpate users.
+- ```security/``` contains functions used to encrypt and decrypt tokens to identify users for this project.
+- ```validators/``` contains functions used to validate request parameters.
+- ```schemas/``` contains methods to serialize and deserialize the data. 
+
+
+## API Endpoints
+
+This is the list of available endpoints for this project.
+
+**Index**
+
+|Method          |Path                           |Description                  |
+|----------------|-------------------------------|-----------------------------|
+|GET             |```/```                        |Welcome message to the user.  |
+|GET             |```/unprotected```             |Test user access. No token needed.|
+|GET             |```/protected```               |Test user access. JSON Web Token (JWT) is required.|
+|GET             |```/all_users```               |Return all users in the database.|
+
+**Authentication**
+
+|Method          |Path                           |Description                  |
+|----------------|-------------------------------|-----------------------------|
+|POST            |```/signup```                  |Create a new user. Return a creation confirmation (JSON object). |
+|POST            |```/login```             	 |Retrieve user web token. Return a JWT (JSON object) |
+
+**User**
+
+|Method          |Path                           |Description                  |
+|----------------|-------------------------------|-----------------------------|
+|GET            |```/users/profile```            |Acquire a single user data. JWT is required. Return user profile (JSON object). |
+|PATCH            |```/users/update```       	 |Update a single user. JWT is required. Return a update confirmation (JSON object). |
+
+**Trade**
+
+|Method          |Path                           |Description                  |
+|----------------|-------------------------------|-----------------------------|
+|POST            |```/trades/new```|Create a new trade. JWT is required. Return a creation confirmation (JSON object). |
+|GET             |```/trades/<trade:id>```|Acquire a single trade data. JWT is required. Return trade profile (JSON object). |
+|GET             |```/trades/all```|Acquire all trade data from user. JWT is required. Return profile of all trades created by user(JSON object). |
+|PATCH            |```/trades/<trade_id>```|Update a single trade. JWT is required. Return an update confirmation (JSON object). |
+|PATCH            |```/trades/update_status/<trade_id>```|Update the status of a single trade. PATCH is used instead of DELETE to make the trade unavailable. Return an update confirmation (JSON object). |
 
 ## Installation
 
