@@ -27,7 +27,7 @@ def get_user_profile(current_user) -> Response:
     token = request.headers['token']
     decoded = jwt.decode(token, options={"verify_signature": False})
     user = User.query.filter_by(id=decoded["id"]).one()
-    return render_template('profile.html', user=user)
+    return render_template('user_profile.html', user=user)
     #return user_schema.jsonify(user), 200
 
 
