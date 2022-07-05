@@ -1,6 +1,6 @@
 # flask packages
 from security.authenticate import token_required
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 
 # project resources
 from config import app, db
@@ -24,7 +24,7 @@ def index():
     Index page. No token needed
     :return: JSON object
     """
-    return jsonify({'message': 'Welcome to the stock trading log!'})
+    return render_template('welcome.html')
 
 
 @app.route('/unprotected')
@@ -55,4 +55,5 @@ def get_users_info():
     :return: JSON object
     """
     results = User.query.all()
-    return jsonify(user_schemas.dump(results))
+    return render_template('all_users.html', results=user_schemas.dump(results))
+    #return jsonify(user_schemas.dump(results))
