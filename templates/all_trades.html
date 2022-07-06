@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>All trades by user</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>List of all trades done by user</H1>
+	<div class="container">
+		<ul>
+		  {% for trade in trades %}
+		  <h3>Id</h3>
+		  <p>{{trade.trade_id}}</p><hr>
+		  <h3>Trade</h3>
+		  <p>{{trade.trade}}</p><hr>
+		  <h3>Company</h3>
+		  <p>{{trade.company}}</p><hr>
+		  <h3>Ticker</h3>
+		  <p>{{trade.ticker}}</p><hr>
+		  <h3>Quantity</h3>
+		  <p>{{trade.quantity}}</p><hr>
+		  <h3>Price</h3>
+		  <p>{{trade.price}}</p><hr>
+		  <h3>Trade day</h3>
+		  <p>{{trade.trade_date}}</p><hr>
+		  <hr>
+		  {% endfor %}
+		</ul>
+	      </div>
+    </BODY>
+</HTML>
