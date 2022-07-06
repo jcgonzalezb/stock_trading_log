@@ -57,8 +57,9 @@ def all_trades(current_user) -> Response:
     JSON Web Token is required.
     :return: JSON object
     """
-    trade = Trade.query.filter_by(user_id=current_user.id).all()
-    return jsonify(trade_schemas.dump(trade))
+    trades = Trade.query.filter_by(user_id=current_user.id).all()
+    return render_template('all_trades.html', trades=trade_schemas.dump(trades))
+    #return jsonify(trade_schemas.dump(trade))
 
 
 @trade_blueprint.route('/<trade_id>', methods=['GET'], strict_slashes=False)
