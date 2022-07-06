@@ -1,5 +1,5 @@
 # flask packages
-from flask import Response, Blueprint, request, jsonify, render_template
+from flask import Response, Blueprint, request, jsonify
 from sqlalchemy.exc import NoResultFound
 
 # project resources
@@ -78,8 +78,7 @@ def profile_trade(current_user, trade_id: str) -> Response:
             return forbidden_trade()
     except NoResultFound:
         return trade_not_found()
-    return render_template('trade_profile.html', trade=trade)
-    #return trade_schema.jsonify(trade)
+    return trade_schema.jsonify(trade)
 
 
 @trade_blueprint.route('/update_status/<trade_id>',

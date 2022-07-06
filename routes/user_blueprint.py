@@ -1,5 +1,5 @@
 # flask packages
-from flask import Response, request, jsonify, Blueprint, render_template
+from flask import Response, request, jsonify, Blueprint
 
 # project resources
 from config import db
@@ -27,8 +27,7 @@ def get_user_profile(current_user) -> Response:
     token = request.headers['token']
     decoded = jwt.decode(token, options={"verify_signature": False})
     user = User.query.filter_by(id=decoded["id"]).one()
-    return render_template('user_profile.html', user=user)
-    #return user_schema.jsonify(user), 200
+    return user_schema.jsonify(user), 200
 
 
 @user_blueprint.route('/update', methods=['PATCH'], strict_slashes=False)
