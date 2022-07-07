@@ -47,7 +47,7 @@ This is the list of available endpoints for this project.
 
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
-|GET            |```/users/profile```            |Acquire a single user data. JWT is required. Return user profile (JSON object). |
+|GET            |```/users/profile```            |Acquire a single user data. JWT is required. Return user profile. |
 |PATCH            |```/users/update```       	 |Update a single user. JWT is required. Return a update confirmation (JSON object). |
 
 **Trade**
@@ -55,8 +55,8 @@ This is the list of available endpoints for this project.
 |Method          |Path                           |Description                  |
 |----------------|-------------------------------|-----------------------------|
 |POST            |```/trades/new```|Create a new trade. JWT is required. Return a creation confirmation (JSON object). |
-|GET             |```/trades/<trade:id>```|Acquire a single trade data. JWT is required. Return trade profile (JSON object). |
-|GET             |```/trades/all```|Acquire all trade data from user. JWT is required. Return profile of all trades created by user(JSON object). |
+|GET             |```/trades/<trade:id>```|Acquire a single trade data. JWT is required. Return trade profile. |
+|GET             |```/trades/all```|Acquire all trade data from user. JWT is required. Return profile of all trades created by user. |
 |PATCH            |```/trades/<trade_id>```|Update a single trade. JWT is required. Return an update confirmation (JSON object). |
 |PATCH            |```/trades/update_status/<trade_id>```|Update the status of a single trade. PATCH is used instead of DELETE to make the trade unavailable. Return an update confirmation (JSON object). |
 
