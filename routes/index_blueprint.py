@@ -55,5 +55,5 @@ def get_users_info():
     :return: JSON object
     """
     results = User.query.all()
-    return render_template('all_users.html', results=user_schemas.dump(results))
-    #return jsonify(user_schemas.dump(results))
+    return render_template('all_users.html',
+                           results=user_schemas.dump(results))

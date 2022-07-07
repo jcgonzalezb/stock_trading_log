@@ -58,8 +58,8 @@ def all_trades(current_user) -> Response:
     :return: JSON object
     """
     trades = Trade.query.filter_by(user_id=current_user.id).all()
-    return render_template('all_trades.html', trades=trade_schemas.dump(trades))
-    #return jsonify(trade_schemas.dump(trade))
+    return render_template('all_trades.html',
+                           trades=trade_schemas.dump(trades))
 
 
 @trade_blueprint.route('/<trade_id>', methods=['GET'], strict_slashes=False)
@@ -80,7 +80,6 @@ def profile_trade(current_user, trade_id: str) -> Response:
     except NoResultFound:
         return trade_not_found()
     return render_template('trade_profile.html', trade=trade)
-    #return trade_schema.jsonify(trade)
 
 
 @trade_blueprint.route('/update_status/<trade_id>',
