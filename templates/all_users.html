@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>All users</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>List of all users</H1>
+	<div class="container">
+		<ul>
+			{% for user in results %}
+			<h3>Id</h3>
+			<p>{{user.id}}</p><hr>
+			<h3>Name</h3>
+			<p>{{user.name}}</p><hr>
+			<h3>Email</h3>
+			<p>{{user.email}}</p><hr>
+			<h3>Password</h3>
+			<p>{{user.password}}</p><hr>
+			<hr>
+			{% endfor %}
+		</ul>
+	      </div>
+    </BODY>
+</HTML>
