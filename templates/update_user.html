@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>Update user profile</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>Update user profile</H1>
+	<div class="container">
+		<ul>
+			<form method="POST">
+				<div class="form-group">
+				<label for="title">Name</label>
+				<input class="form-control" id = 'title' type = "text" name = "name" value="{{user.name}}" required>
+				</div>
+				<button class="btn btn-primary submit-btn" type="submit">Update</button>
+			</form>
+		</ul>
+	</div>
+    </BODY>
+</HTML>
