@@ -8,19 +8,17 @@ HTTP server REST API implementation. Stock trading log. Creating a registration 
 
 ## Table of content
 
-- [Architecture](#architecture)
-	- [Technology Stack ](#technology-stack)
-	- [Database Diagram Model](#database-diagram-model)
-
-- [Environment](#environment)
-	- [File Descriptions](#file-descriptions)
-	- [API Endpoints](#api-endpoints)
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Bugs](#bugs)
-- [Authors](#authors)
-- [License](#license)
+* [Architecture](#architecture)
+	* [Technology Stack ](#technology-stack)
+	* [Database Diagram Model](#database-diagram-model)
+* [Environment](#environment)
+	* [File Descriptions](#file-descriptions)
+	* [API Endpoints](#api-endpoints)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Bugs](#bugs)
+* [Authors](#authors)
+* [License](#license)
 
 
 
