@@ -100,6 +100,33 @@ $   pip install -r requirements.txt
 $   python3 app.py
 ```
 
+Now you are running the API and available to create requests locally and test functionality, e.g.
+
+```
+ * Serving Flask app 'config' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 262-635-844
+```
+
+7. To test the API, copy the IP address from your console, e.g. http://127.0.0.1:5000 and go to Usage
+
+8. When you have done, terminate the app process with Ctrl+c and deactivate the venv.
+
+```
+$ deactivate
+```
+## Usage
+
+
+
+
+
 
 ## Authors
 
