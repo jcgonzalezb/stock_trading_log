@@ -23,17 +23,17 @@
 * [License](#license)
 
 ##  Architecture
-##  Technology Stack
+###  Technology Stack
 ![Web infrastructure stack image](documentation/images/Technology%20stack.jpg)
 
-##  Database Diagram Model
+###  Database Diagram Model
 
 ![Log trading log ERR Diagram](documentation/images/DB_stock_log_V3.png)
 
 ##  Environment
 This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
 
-## File Descriptions
+### File Descriptions
 
 - ```app.py```  contains the entry point of the API.
 - ```config.py```  contains the configuration settings for the API.
@@ -52,7 +52,7 @@ This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask fr
 
 
 
-## API Endpoints
+### API Endpoints
 
 This is the list of available endpoints for this project.
 
@@ -150,7 +150,7 @@ $ deactivate
 ```
 ## Usage
 
-
+Load the postman collection in the [collections](documentation/collections) folder into your postman account to test each endpoint. 
 
 
 
