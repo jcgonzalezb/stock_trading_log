@@ -154,7 +154,7 @@ $ deactivate
 
 Load the postman collection in the [collections](documentation/collections) folder into your postman account to test each endpoint. 
 
-* Example of use
+#### Example of use
 
 This example shows how to update the name of a user.
 1. Go to http://127.0.0.1:5000/login/, set in the authorization section the username (email) and password assigned to a user. Then, set the HTTP method to POST and make click on the send buttom. The server will return an access token you'll need to try the endpoints. At the end, make copy of the access token.
