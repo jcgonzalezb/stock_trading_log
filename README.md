@@ -13,15 +13,14 @@ HTTP server REST API implementation. Stock trading log. Creating a registration 
 	- [Database Diagram Model](#database-diagram-model)
 
 - [Environment](#environment)
-	- File Descriptions
-	- API Endpoints
+	- [File Descriptions](#file-descriptions)
+	- [API Endpoints](#api-endpoints)
 
-- Installation
-- Usage
-
-- Bugs
-- Authors
-- License
+- [Installation](#installation)
+- [Usage](#usage)
+- [Bugs](#bugs)
+- [Author](#author)
+- [License](#license)
 
 
 
