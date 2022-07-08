@@ -1,0 +1,578 @@
+{
+	"info": {
+		"_postman_id": "db5bf7e2-f4d1-43fb-b562-34b16706baeb",
+		"name": "Trading Log",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19787567"
+	},
+	"item": [
+		{
+			"name": "SIgnup",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"email\": \"AB2005@gmail.com\",\r\n    \"password\": \"mypasswordtest\",\r\n    \"name\": \"John Doe\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/signup/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"signup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "index",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unprotected",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/unprotected",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"unprotected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protected",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/protected",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"protected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/all_users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"all_users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Profile",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/users/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"name\": \"Ray Dalio\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/users/update",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Trade",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\": \"Morgan Stanley\",\r\n    \"price\": 80,\r\n    \"quantity\": 2,\r\n    \"ticker\": \"MS\",\r\n    \"trade\": \"Buy\",\r\n    \"trade_date\": \"2022-04-20\",\r\n    \"trade_status\": \"enable\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/trades/new",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"trades",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trade Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/trades/9",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"trades",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All trades",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/trades/all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"trades",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trade Update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": 110,\r\n    \"quantity\": 15\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/trades/9",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"trades",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disable Trade",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "AB2005@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mypasswordtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjU3MTY0ODAwfQ.ECWswILxSdkAsWIJDylZFBSuKtJIiFA_xZMd2woE_HA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": 110,\r\n    \"quantity\": 15\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/trades/update_status/9",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"trades",
+						"update_status",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
