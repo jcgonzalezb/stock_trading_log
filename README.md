@@ -1,6 +1,3 @@
-
-
-
 # Stock Trading Log REST API
 > This project is an HTTP server REST API implementation
 
@@ -20,7 +17,10 @@ This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask fr
 - ```routes/trade_blueprint.py``` implemented routes to create, read and udpate users.
 - ```security/``` contains functions used to encrypt and decrypt tokens to identify users for this project.
 - ```validators/``` contains functions used to validate request parameters.
-- ```schemas/``` contains methods to serialize and deserialize the data. 
+- ```schemas/``` contains methods to serialize and deserialize the data.
+- ```templates/``` contains html files used to show users and trades.
+- ```documentation/``` contains images used in the readme.md file.
+
 
 
 ## API Endpoints
