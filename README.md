@@ -4,7 +4,9 @@
 
 ## Objectives
 
-HTTP server REST API implementation. Stock trading log. Creating a registration service that receives an email and a password. Allowing login into the server with an email and a password. Allowing logged in users to create, delete and update trading operations. This API is a great stock trading journal for traders and investors. It keeps track of your trade history.
+- Creating a registration service that receives an email and a password. 
+- Allowing login into the server with an email and a password. 
+- Allowing logged in users to create and update trading operations.
 
 ## Table of content
 
