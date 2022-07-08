@@ -22,7 +22,7 @@ HTTP server REST API implementation. Stock trading log. Creating a registration 
 
 ##  Architecture
 ##  Technology Stack
-
+![Web infrastructure stack image](documentation/images/Technology%20stack.jpg)
 
 ##  Database Diagram Model
 
