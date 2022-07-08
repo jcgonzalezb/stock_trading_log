@@ -19,7 +19,7 @@ HTTP server REST API implementation. Stock trading log. Creating a registration 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Bugs](#bugs)
-- [Author](#author)
+- [Authors](#authors)
 - [License](#license)
 
 
