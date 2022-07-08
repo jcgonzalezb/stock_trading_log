@@ -9,6 +9,8 @@ This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask fr
 ## File Descriptions
 
 - ```app.py```  contains the entry point of the API.
+- ```config.py```  contains the configuration settings for the API.
+- ```DB_stock_log_V3.sql```  contains the database configured for this project (data not included).
 - ```models/``` contains classes used for this project.
 - ```routes/``` contains endpoints implemented for the API:
 - ```routes/auth_blueprint.py``` implemented routes to create users and login.
