@@ -159,15 +159,18 @@ Load the postman collection in the [collections](documentation/collections) fold
 This example shows how to update the name of a user.
 1. Go to the IP address http://127.0.0.1:5000/login/, set in the authorization section the username (email) and password assigned to a user. Then, set the HTTP method to POST and make click on the send buttom. The server will return an access token you'll need to try the endpoints. At the end, make copy of the access token.
 
-![Postman Login](documentation/images/update_user_1.PNG)
+![Postman Login](documentation/images/update_user_1.png)
+
+
+https://github.com/jcgonzalezb/stock_trading_log/blob/main/
 
 2. Go to http://127.0.0.1:5000/users/update, set in the authorization section the username (email) and password assigned to the same user, click on Headers to insert the token previouesly created and click on Body to insert the JSON body with the new name of the user. The app would not be allowed to update more user information other than the name.
 
-![Postman Update](documentation/images/update_user_2.PNG)
+![Postman Update](documentation/images/update_user_2.png)
 
 3. SET the HTTP method to PATCH and and make click on the send buttom. The app will show the following mssage: "The user has been updated!". The user name has been updated successfully. To confirm the update, go to http://127.0.0.1:5000/users/profile.
 
-![Postman Profile](documentation/images/update_user_3.PNG)
+![Postman Profile](documentation/images/update_user_3.png)
 
 
 ## Bugs
