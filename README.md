@@ -9,7 +9,7 @@ HTTP server REST API implementation. Stock trading log. Creating a registration 
 ## Table of content
 
 * [Architecture](#architecture)
-	* [Technology Stack ](#technology-stack)
+	* [Technology Stack](#technology-stack)
 	* [Database Diagram Model](#database-diagram-model)
 * [Environment](#environment)
 	* [File Descriptions](#file-descriptions)
@@ -20,12 +20,13 @@ HTTP server REST API implementation. Stock trading log. Creating a registration 
 * [Authors](#authors)
 * [License](#license)
 
+##  Architecture
+##  Technology Stack
 
 
+##  Database Diagram Model
 
-
-
-
+![Log trading log ERR Diagram](documentation/images/DB_stock_log_V3.png)
 
 ##  Environment
 This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
