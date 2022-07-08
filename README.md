@@ -2,6 +2,33 @@
 > This project is an HTTP server REST API implementation
 
 
+## Objectives
+
+HTTP server REST API implementation. Stock trading log. Creating a registration service that receives an email and a password. Allowing login into the server with an email and a password. Allowing logged in users to create, delete and update trading operations. This API is a great stock trading journal for traders and investors. It keeps track of your trade history.
+
+## Table of content
+
+- [Architecture](#architecture)
+	- [Technology Stack ](#technology-stack)
+	- [Database Diagram Model](#database-diagram-model)
+
+- [Environment](#environment)
+	- File Descriptions
+	- API Endpoints
+
+- Installation
+- Usage
+
+- Bugs
+- Authors
+- License
+
+
+
+
+
+
+
 
 ##  Environment
 This project was developed on Ubuntu 20.04 LTS using python 3.8.10 with flask framework, connecting to a MySQL Database.
@@ -100,7 +127,7 @@ $   pip install -r requirements.txt
 $   python3 app.py
 ```
 
-Now you are running the API and available to create requests locally and test functionality, e.g.
+Now you are running the API and it is ready to create requests locally and test functionality, e.g.
 
 ```
  * Serving Flask app 'config' (lazy loading)
@@ -128,9 +155,18 @@ $ deactivate
 
 
 
+## Bugs
+
+No known bugs at this time.
+
+
 ## Authors
 
 - Alejandra Hincapie Cortés <a href="https://www.linkedin.com/in/lahincapie612?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BxMhp1VYdQ2WVBGG0L%2BSNZQ%3D%3D" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://bit.ly/2mbnr0t" height="30" width="40" /></a>
 
 - Juan Camilo González <a href="https://twitter.com/juankter" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="juankter" height="30" width="40" /></a>
 <a href="https://bit.ly/2MBNR0t" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://bit.ly/2mbnr0t" height="30" width="40" /></a>
+
+## License
+
+Public Domain. No copy write protection.
