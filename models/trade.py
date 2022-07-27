@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 # SQLAlchemy package
 from sqlalchemy.dialects.mysql import INTEGER
 

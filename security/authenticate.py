@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # flask packages
 from flask import jsonify, request
 
@@ -6,7 +7,6 @@ from config import app
 from models.user import User
 
 # jwt implementation
-#!/usr/bin/env python3
 import jwt
 from functools import wraps
 
