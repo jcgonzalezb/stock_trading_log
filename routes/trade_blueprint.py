@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # flask packages
 from flask import Response, Blueprint, request, jsonify, render_template
 from sqlalchemy.exc import NoResultFound

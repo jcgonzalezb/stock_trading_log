@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # marshmallow package
 from flask_marshmallow import Marshmallow
 

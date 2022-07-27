@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # local package
 from schemas.ma import ma
 

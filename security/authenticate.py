@@ -6,6 +6,7 @@ from config import app
 from models.user import User
 
 # jwt implementation
+#!/usr/bin/env python3
 import jwt
 from functools import wraps
 
