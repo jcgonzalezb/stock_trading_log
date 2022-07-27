@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # local packages
 from config import app, db
 from routes.index_blueprint import index_blueprint

@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # flask packages
 from flask import Blueprint, Response, request, jsonify, make_response
 

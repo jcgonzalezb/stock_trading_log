@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # flask packages
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy

@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # flask packages
 from security.authenticate import token_required
 from flask import Blueprint, jsonify, render_template
